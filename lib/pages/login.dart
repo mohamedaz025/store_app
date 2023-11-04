@@ -51,7 +51,6 @@ class Login extends StatelessWidget {
                         style: TextStyle(fontSize: 18)),
                     TextButton(
                         onPressed: () {
-                          
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // theme: ThemeData.light(useMaterial3: true),
       // اسم صفحة البداية
-      home: Register(),
+      home: Login(),
     );
   }
 }
