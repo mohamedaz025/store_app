@@ -1,8 +1,11 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
 import 'package:store_app/model/item.dart';
+import 'package:store_app/pages/details_screen.dart';
+import 'package:store_app/provirder/card.dart';
 import 'package:store_app/shared/colors.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -64,44 +67,47 @@ class Home extends StatelessWidget {
         backgroundColor: appbarGreen,
         title: Text("Home"),
         actions: [
-          Row(
-            children: [
-              Stack(
-                children: [
-                  Positioned(
-                    bottom: 24,
-                    child: Container(
-                      child: Text(
-                        "8",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: const Color.fromARGB(255, 0, 0, 0)),
-                      ),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(211, 164, 255, 193),
-                        shape: BoxShape.circle,
+          Consumer<Cared>(builder: ((context, classInstancee, child) {
+            return Row(
+              children: [
+                Stack(
+                  children: [
+                    Positioned(
+                      bottom: 24,
+                      child: Container(
+                        child: Text(
+                          "${classInstancee.selectedproducts.length}",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: const Color.fromARGB(255, 0, 0, 0)),
+                        ),
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(211, 164, 255, 193),
+                          shape: BoxShape.circle,
+                        ),
                       ),
                     ),
-                  ),
-                  IconButton(
-                      icon: Icon(
-                          Icons.add_shopping_cart), // الاكشن تظهر علي اليمين
-                      onPressed: () {}),
-                ],
-              ), //  لعمل ايكونه للضغط عليها
+                    IconButton(
+                        icon: Icon(
+                            Icons.add_shopping_cart), // الاكشن تظهر علي اليمين
+                        onPressed: () {}),
+                  ],
+                ),
+//  لعمل ايكونه للضغط عليها
 
-              Padding(
-                padding: const EdgeInsets.only(
-                  right: 12,
-                ),
-                child: Text(
-                  "\$ 128",
-                  style: TextStyle(fontSize: 16),
-                ),
-              )
-            ],
-          )
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: 12,
+                  ),
+                  child: Text(
+                    "\$ ${classInstancee.price}",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                )
+              ],
+            );
+          })),
         ],
       ),
       body: GridView.builder(
@@ -122,7 +128,12 @@ class Home extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10),
               //  نضع بداخل الديكستشر ديتكتور اي ودجت سنضغط عليها
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Details(prodact: item[index])));
+                },
                 child: GridTile(
                   // لتحريك الصوره داخل الجريد تايل
                   child: Stack(
@@ -144,12 +155,18 @@ class Home extends StatelessWidget {
                   ),
 
                   footer: GridTileBar(
-                    trailing: IconButton(
-                      color: Colors.red,
-                      icon: Icon(Icons.add),
-                      onPressed: () {},
-                    ),
-                    leading: Text("\$12.99"),
+                    trailing:
+                        Consumer<Cared>(builder: ((context, cartt, child) {
+                      return IconButton(
+                        color: Colors.red,
+                        icon: Icon(Icons.add),
+                        onPressed: () {
+                          cartt.add(item[index]);
+                        },
+                      );
+                    })),
+                    // لاظهار هنصر بداخل ليسه
+                    leading: Text("${item[index].price}"),
                     title: Text(""),
                   ),
                 ),

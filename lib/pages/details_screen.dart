@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:store_app/model/item.dart';
 import 'package:store_app/shared/colors.dart';
 
 class Details extends StatefulWidget {
+  Item prodact;
+  Details({required this.prodact});
   @override
   State<Details> createState() => _DetailsState();
 }
@@ -61,12 +64,12 @@ class _DetailsState extends State<Details> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.asset("assets/img/2.webp"),
+            Image.asset(widget.prodact.imgPath),
             SizedBox(
               height: 20,
             ),
             Text(
-              "\$12.99",
+              "\$ ${widget.prodact.price}",
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 16),
@@ -110,7 +113,7 @@ class _DetailsState extends State<Details> {
                       width: 3,
                     ),
                     Text(
-                      "Flower Shop",
+                      widget.prodact.location,
                       style: TextStyle(fontSize: 19),
                     ),
                   ],
@@ -136,12 +139,12 @@ class _DetailsState extends State<Details> {
             TextButton(
                 onPressed: () {
                   setState(() {
-                    //  عكس حالة المتغير 
+                    //  عكس حالة المتغير
                     isshowmore = !isshowmore;
                   });
                 },
                 child: Text(
-               isshowmore ? "Show more" : "Show less" ,
+                  isshowmore ? "Show more" : "Show less",
                   style: TextStyle(fontSize: 18),
                 ))
           ],
