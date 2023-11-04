@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:store_app/pages/home.dart';
 import 'package:store_app/pages/login.dart';
 import 'package:store_app/pages/register.dart';            
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // theme: ThemeData.light(useMaterial3: true),
       // اسم صفحة البداية
-      home: Login(),
+      home: Home(),
     );
   }
 }
