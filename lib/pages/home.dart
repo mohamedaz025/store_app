@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:store_app/model/item.dart';
 import 'package:store_app/shared/colors.dart';
 
 class Home extends StatelessWidget {
@@ -20,7 +21,7 @@ class Home extends StatelessWidget {
                 UserAccountsDrawerHeader(
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage("assets/img/egypt.png"),
+                    image: AssetImage("assets/img/test.jpg"),
                     // لجعل الصوره تملاء المربع
                     fit: BoxFit.cover,
                   )),
@@ -103,6 +104,58 @@ class Home extends StatelessWidget {
           )
         ],
       ),
+      body: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              // عدد التكرار في كل صف
+              crossAxisCount: 2,
+              // قياس الطول بالنسبه الي العرض
+              childAspectRatio: 3 / 3,
+              // المسافة بين كل كونتينر علي محول الطول
+              crossAxisSpacing: 20,
+              // المسافة بين كل كونتينر علي محور العرض
+              mainAxisSpacing: 33),
+          // عدد العناصر
+          itemCount: item.length,
+          // تحتوي علي الودجيت الذي تريد تكراره
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 10),
+              //  نضع بداخل الديكستشر ديتكتور اي ودجت سنضغط عليها
+              child: GestureDetector(
+                onTap: () {},
+                child: GridTile(
+                  // لتحريك الصوره داخل الجريد تايل
+                  child: Stack(
+                    children: [
+                      // لتحريك الصوره داخل الجريد تايل
+                      Positioned(
+                        right: 0,
+                        left: 0,
+                        bottom: 0,
+                        top: 0,
+                        // لعمل حواف للصوره
+                        child: ClipRRect(
+
+                            // لعمل حواف للصوره مستديره
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset(item[index].imgPath)),
+                      ),
+                    ],
+                  ),
+
+                  footer: GridTileBar(
+                    trailing: IconButton(
+                      color: Colors.red,
+                      icon: Icon(Icons.add),
+                      onPressed: () {},
+                    ),
+                    leading: Text("\$12.99"),
+                    title: Text(""),
+                  ),
+                ),
+              ),
+            );
+          }),
     );
   }
 }
