@@ -40,8 +40,8 @@ class _DetailsState extends State<Details> {
                 Container(
                   padding: EdgeInsets.all(4),
                   child: Text(
-                    "daaa",
-                    style: TextStyle(fontSize: 12),
+                    "stars",
+                    style: TextStyle(fontSize: 15),
                   ),
                   decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 255, 192, 192),

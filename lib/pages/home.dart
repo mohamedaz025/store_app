@@ -122,15 +122,30 @@ class Home extends StatelessWidget {
                   ),
 
                   footer: GridTileBar(
-                    trailing: IconButton(
-                      color: Colors.red,
-                      icon: Icon(Icons.add),
-                      onPressed: () {
-                        carttt.add(item[index]);
-                      },
+                    trailing: Container(
+                      decoration: BoxDecoration(
+                        color:  const Color.fromARGB(255, 255, 192, 192),
+                        borderRadius: BorderRadius.circular(10)),
+                      child: IconButton(
+                        color: Colors.green,
+                        iconSize: 40,
+                        icon: Icon(Icons.add),
+                        onPressed: () {
+                          carttt.add(item[index]);
+                        },
+                      ),
                     ),
                     // لاظهار هنصر بداخل ليسه
-                    leading: Text("${item[index].price}"),
+                    leading: Container(
+                      child: Text(
+                        "${item[index].price}",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w900),
+                      ),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 255, 192, 192),
+                          borderRadius: BorderRadius.circular(4)),
+                    ),
                     title: Text(""),
                   ),
                 ),
