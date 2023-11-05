@@ -10,4 +10,10 @@ class Cared with ChangeNotifier {
     // لعمل ريف ريش بعد الفونكشون
     notifyListeners();
   }
+
+  delete(Item product) {
+    selectedproducts.remove(product);
+    price -= product.price.round();
+    notifyListeners();
+  }
 }

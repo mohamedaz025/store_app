@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:store_app/model/item.dart';
 import 'package:store_app/pages/details_screen.dart';
 import 'package:store_app/provirder/card.dart';
+import 'package:store_app/shared/apppar.dart';
 import 'package:store_app/shared/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartt = Provider.of<Cared>(context);
     return Scaffold(
       // لعمل قائمة منيو من اليسار
       drawer: Drawer(
@@ -67,47 +69,8 @@ class Home extends StatelessWidget {
         backgroundColor: appbarGreen,
         title: Text("Home"),
         actions: [
-          Consumer<Cared>(builder: ((context, classInstancee, child) {
-            return Row(
-              children: [
-                Stack(
-                  children: [
-                    Positioned(
-                      bottom: 24,
-                      child: Container(
-                        child: Text(
-                          "${classInstancee.selectedproducts.length}",
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: const Color.fromARGB(255, 0, 0, 0)),
-                        ),
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(211, 164, 255, 193),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                        icon: Icon(
-                            Icons.add_shopping_cart), // الاكشن تظهر علي اليمين
-                        onPressed: () {}),
-                  ],
-                ),
-//  لعمل ايكونه للضغط عليها
-
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: 12,
-                  ),
-                  child: Text(
-                    "\$ ${classInstancee.price}",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                )
-              ],
-            );
-          })),
+       ProductsAndPrice()
+          
         ],
       ),
       body: GridView.builder(
@@ -155,16 +118,13 @@ class Home extends StatelessWidget {
                   ),
 
                   footer: GridTileBar(
-                    trailing:
-                        Consumer<Cared>(builder: ((context, cartt, child) {
-                      return IconButton(
+                    trailing:IconButton(
                         color: Colors.red,
                         icon: Icon(Icons.add),
                         onPressed: () {
                           cartt.add(item[index]);
-                        },
-                      );
-                    })),
+                        },  
+                    ),
                     // لاظهار هنصر بداخل ليسه
                     leading: Text("${item[index].price}"),
                     title: Text(""),

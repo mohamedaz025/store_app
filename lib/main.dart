@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store_app/model/item.dart';
+import 'package:store_app/pages/checkout.dart';
 import 'package:store_app/pages/details_screen.dart';
 import 'package:store_app/pages/home.dart';
 import 'package:store_app/pages/login.dart';
@@ -22,12 +23,10 @@ class MyApp extends StatelessWidget {
         return Cared();
       },
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        // theme: ThemeData.light(useMaterial3: true),
-        // اسم صفحة البداية
-        home: Home(
-        )
-      ),
+          debugShowCheckedModeBanner: false,
+          // theme: ThemeData.light(useMaterial3: true),
+          // اسم صفحة البداية
+          home: Home()),
     );
   }
 }
