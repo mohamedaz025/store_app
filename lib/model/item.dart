@@ -4,61 +4,83 @@ class Item {
   String location;
   String details;
   String name;
+  String star;
   Item(
       {required this.imgPath,
       required this.price,
       required this.location,
       required this.name,
-      required this.details});
+      required this.details,
+      required this.star
+      });
 }
 
 final List<Item> item = [
   Item(
-      name:"name 1",
-      imgPath: "assets/img/1.webp",
+      name: "Swiss Inn Resort Hurghada",
+      imgPath: "assets/img/1.jpg",
       price: 212.99,
-      location: "Sharm El Sheikh",
-      details: "فندق 1"),
+      location: "Hurghada",
+      details: "فندق 1",
+      star: "⭐"
+      
+      ),
+
   Item(
-    name:"name 2",
-      imgPath: "assets/img/2.webp",
+      name: "Fun Apartment Hurghada",
+      imgPath: "assets/img/2.jpg",
       price: 312.99,
-      location: "Sharm El Sheikh",
-      details: "2فندق"),
+      location: "Hurghada",
+      details: "2فندق",
+      star: "⭐⭐"
+      ),
   Item(
-    name:"name 3",
-      imgPath: "assets/img/3.webp",
+      name: "Captain Resort",
+      imgPath: "assets/img/3.jpg",
       price: 412.99,
-      location: "Sharm El Sheikh",
-      details: "فندق3 "),
+      location: "Hurghada",
+      details: "فندق3 ",
+      star: "⭐⭐⭐"
+      ),
   Item(
-    name:"name 4",
-      imgPath: "assets/img/4.webp",
+      name: "Imperial Resort Hurghada",
+      imgPath: "assets/img/1.jpg",
       price: 512.99,
-      location: "Sharm El Sheikh",
-      details: "4فندق"),
+      location: "Hurghada",
+      details: "4فندق",
+      star: "⭐⭐⭐⭐"
+      ),
   Item(
-    name:"name 5",
-      imgPath: "assets/img/5.webp",
+      name: "Swiss Inn Resort Hurghada",
+      imgPath: "assets/img/5.jpg",
       price: 612.99,
-      location: "Sharm El Sheikh",
-      details: "5فندق"),
+      location: "Hurghada",
+      details: "5فندق",
+      star: "⭐⭐⭐⭐⭐"
+      
+      ),
   Item(
-    name:"name 6",
-      imgPath: "assets/img/6.webp",
+      name: "Simple but Cosy",
+      imgPath: "assets/img/6.jpg",
       price: 712.99,
-      location: "Sharm El Sheikh",
-      details: "6فندق"),
+      location: "Hurghada",
+      details: "6فندق",
+      star: "⭐⭐⭐⭐⭐⭐"
+      ),
   Item(
-    name:"name 7",
-      imgPath: "assets/img/7.webp",
+      name: "Florenza - sea view",
+      imgPath: "assets/img/7.jpg",
       price: 812.99,
-      location: "Sharm El Sheikh",
-      details: "7فندق"),
+      location: "Hurghada",
+      details: "7فندق",
+      star: "⭐⭐⭐⭐⭐⭐⭐"
+      ),
   Item(
-    name:"name 8",
-      imgPath: "assets/img/8.webp",
+      name: "Moon Beach Suites",
+      imgPath: "assets/img/8.jpg",
       price: 912.99,
-      location: "Sharm El Sheikh",
-      details: "8فندق"),
+      location: "Hurghada",
+      details: "8فندق",
+      star: "⭐⭐⭐⭐⭐⭐⭐⭐"
+      ),
 ];

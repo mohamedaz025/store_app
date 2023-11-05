@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:store_app/model/item.dart';
+import 'package:store_app/pages/checkout.dart';
 import 'package:store_app/pages/details_screen.dart';
 import 'package:store_app/provirder/card.dart';
 import 'package:store_app/shared/apppar.dart';
@@ -13,7 +14,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartt = Provider.of<Cared>(context);
+    final carttt = Provider.of<Cared>(context);
     return Scaffold(
       // لعمل قائمة منيو من اليسار
       drawer: Drawer(
@@ -41,11 +42,17 @@ class Home extends StatelessWidget {
                 ListTile(
                     title: Text("Home"),
                     leading: Icon(Icons.home),
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                    }),
                 ListTile(
                     title: Text("My products"),
                     leading: Icon(Icons.add_shopping_cart),
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Checkout()));
+                    }),
                 ListTile(
                     title: Text("About"),
                     leading: Icon(Icons.help_center),
@@ -68,17 +75,14 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: appbarGreen,
         title: Text("Home"),
-        actions: [
-       ProductsAndPrice()
-          
-        ],
+        actions: [ProductsAndPrice()],
       ),
       body: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               // عدد التكرار في كل صف
-              crossAxisCount: 2,
+              crossAxisCount: 1,
               // قياس الطول بالنسبه الي العرض
-              childAspectRatio: 3 / 3,
+              childAspectRatio: 3 / 2,
               // المسافة بين كل كونتينر علي محول الطول
               crossAxisSpacing: 20,
               // المسافة بين كل كونتينر علي محور العرض
@@ -118,12 +122,12 @@ class Home extends StatelessWidget {
                   ),
 
                   footer: GridTileBar(
-                    trailing:IconButton(
-                        color: Colors.red,
-                        icon: Icon(Icons.add),
-                        onPressed: () {
-                          cartt.add(item[index]);
-                        },  
+                    trailing: IconButton(
+                      color: Colors.red,
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        carttt.add(item[index]);
+                      },
                     ),
                     // لاظهار هنصر بداخل ليسه
                     leading: Text("${item[index].price}"),

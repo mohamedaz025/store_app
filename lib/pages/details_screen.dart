@@ -21,9 +21,7 @@ class _DetailsState extends State<Details> {
       appBar: AppBar(
         backgroundColor: appbarGreen,
         title: Text("details_screen"),
-        actions: [
-          ProductsAndPrice()
-        ],
+        actions: [ProductsAndPrice()],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -52,16 +50,7 @@ class _DetailsState extends State<Details> {
                 SizedBox(width: 11),
                 Row(
                   children: [
-                    Icon(Icons.star,
-                        color: const Color.fromARGB(255, 255, 191, 0)),
-                    Icon(Icons.star,
-                        color: const Color.fromARGB(255, 255, 191, 0)),
-                    Icon(Icons.star,
-                        color: const Color.fromARGB(255, 255, 191, 0)),
-                    Icon(Icons.star,
-                        color: const Color.fromARGB(255, 255, 191, 0)),
-                    Icon(Icons.star,
-                        color: const Color.fromARGB(255, 255, 191, 0)),
+                    Text( widget.prodact.star,)
                   ],
                 ),
                 SizedBox(width: 77),
@@ -89,7 +78,7 @@ class _DetailsState extends State<Details> {
             SizedBox(
               width: double.infinity,
               child: Text(
-                "details_screen",
+                "${widget.prodact.name}",
                 style: TextStyle(fontSize: 22),
                 textAlign: TextAlign.start,
               ),

@@ -12,7 +12,7 @@ class ProductsAndPrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartt = Provider.of<Cared>(context);
+    final carttt = Provider.of<Cared>(context);
     return  Row(
               children: [
                 Stack(
@@ -21,7 +21,7 @@ class ProductsAndPrice extends StatelessWidget {
                       bottom: 24,
                       child: Container(
                         child: Text(
-                          "${cartt.selectedproducts.length}",
+                          "${carttt.selectedproducts.length}",
                           style: TextStyle(
                               fontSize: 16,
                               color: const Color.fromARGB(255, 0, 0, 0)),
@@ -51,7 +51,7 @@ class ProductsAndPrice extends StatelessWidget {
                     right: 12,
                   ),
                   child: Text(
-                    "\$ ${cartt.price}",
+                    "\$ ${carttt.price}",
                     style: TextStyle(fontSize: 16),
                   ),
                 )
