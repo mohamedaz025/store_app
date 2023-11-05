@@ -1,12 +1,54 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/pages/login.dart';
 import 'package:store_app/shared/colors.dart';
 import 'package:store_app/shared/contants.dart';
 
-class Register extends StatelessWidget {
-  const Register({super.key});
+class Register extends StatefulWidget {
+  Register({super.key});
+
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  bool isLoding = false;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  register() async {
+    setState(() {
+      isLoding = true;
+    });
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+    setState(() {
+      isLoding = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,29 +67,37 @@ class Register extends StatelessWidget {
                         hintText: "Enter Your username :")),
                 const SizedBox(height: 20),
                 TextField(
+                    controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     obscureText: false,
                     decoration: decorationtextfiled.copyWith(
                         hintText: "Enter Your email :")),
                 const SizedBox(height: 20),
                 TextField(
+                    controller: passwordController,
                     keyboardType: TextInputType.text,
                     obscureText: true,
                     decoration: decorationtextfiled.copyWith(
                         hintText: "Enter Your password :")),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    register();
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(BTNgreen),
                     padding: MaterialStateProperty.all(EdgeInsets.all(12)),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8))),
                   ),
-                  child: Text(
-                    "Register",
-                    style: TextStyle(fontSize: 19),
-                  ),
+                  child: isLoding
+                      ? CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : Text(
+                          "Register",
+                          style: TextStyle(fontSize: 19),
+                        ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +109,7 @@ class Register extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              // اسم الصفحه المراد الوصل اليها
+                                // اسم الصفحه المراد الوصل اليها
                                 builder: (context) => const Login()),
                           );
                         },

@@ -55,7 +55,7 @@ class Login extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 // اسم الصفحه المراد الوصل اليها
-                                builder: (context) => const Register()),
+                                builder: (context) => Register()),
                           );
                         },
                         child: Text('sign up',

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store_app/firebase_options.dart';
 import 'package:store_app/model/item.dart';
 import 'package:store_app/pages/checkout.dart';
 import 'package:store_app/pages/details_screen.dart';
@@ -9,10 +10,16 @@ import 'package:store_app/pages/home.dart';
 import 'package:store_app/pages/login.dart';
 import 'package:store_app/pages/register.dart';
 import 'package:store_app/provirder/card.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+ Future<void> main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+     );
+    runApp(const MyApp());
+ }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -26,7 +33,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           // theme: ThemeData.light(useMaterial3: true),
           // اسم صفحة البداية
-          home: Home()),
+          home: Register()),
     );
   }
 }
