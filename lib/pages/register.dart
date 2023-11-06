@@ -95,222 +95,225 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.all(33),
-            child: Form(
-              key: _formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextField(
-                        keyboardType: TextInputType.text,
-                        obscureText: false,
-                        decoration: decorationtextfiled.copyWith(
-                            hintText: "Enter Your username :",
-                            suffixIcon: Icon(Icons.person))),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                        validator: (email) {
-                          return email!.contains(RegExp(
-                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))
-                              ? null
-                              : "Enter a valid email";
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        obscureText: false,
-                        decoration: decorationtextfiled.copyWith(
-                            hintText: "Enter Your email :",
-                            suffixIcon: Icon(Icons.email))),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                        onChanged: (password) {
-                          onpasswordchanged(password);
-                        },
-                        validator: (value) {
-                          return value!.length < 8
-                              ? "Enter at least 8 characters"
-                              : null;
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: passwordController,
-                        keyboardType: TextInputType.text,
-                        obscureText: isvisable ? true : false,
-                        decoration: decorationtextfiled.copyWith(
-                            hintText: "Enter Your password :",
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    //  عكس القيمة تغير لاظهار الباسورد
-                                    isvisable = !isvisable;
-                                  });
-                                },
-                                // تغير شكل ايكونة الباسورد علي حسب متغير
-                                icon: isvisable
-                                    ? Icon(Icons.visibility)
-                                    : Icon(Icons.visibility_off))
-                                    )
-                                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Container(
-                          child:
-                              Icon(Icons.check, color: Colors.white, size: 15),
-                          decoration: BoxDecoration(
-                              color:
-                                  ispassword8char ? Colors.green : Colors.white,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color: const Color.fromARGB(
-                                      255, 189, 189, 189))),
-                        ),
-                        SizedBox(
-                          width: 11,
-                        ),
-                        Text("At least 8 characters")
-                      ],
-                    ),
-                    SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Container(
-                          child:
-                              Icon(Icons.check, color: Colors.white, size: 15),
-                          decoration: BoxDecoration(
-                              color: ispasswordHas1number
-                                  ? Colors.green
-                                  : Colors.white,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color: const Color.fromARGB(
-                                      255, 189, 189, 189))),
-                        ),
-                        SizedBox(
-                          width: 11,
-                        ),
-                        Text("At least 1 number")
-                      ],
-                    ),
-                    SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Container(
-                          child:
-                              Icon(Icons.check, color: Colors.white, size: 15),
-                          decoration: BoxDecoration(
-                              color: hasUppercase ? Colors.green : Colors.white,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color: const Color.fromARGB(
-                                      255, 189, 189, 189))),
-                        ),
-                        SizedBox(
-                          width: 11,
-                        ),
-                        Text("Has Uppercase")
-                      ],
-                    ),
-                    SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Container(
-                          child:
-                              Icon(Icons.check, color: Colors.white, size: 15),
-                          decoration: BoxDecoration(
-                              color: hasLowercase ? Colors.green : Colors.white,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color: const Color.fromARGB(
-                                      255, 189, 189, 189))),
-                        ),
-                        SizedBox(
-                          width: 11,
-                        ),
-                        Text("Has Lowercase")
-                      ],
-                    ),
-                    SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Container(
-                          child:
-                              Icon(Icons.check, color: Colors.white, size: 15),
-                          decoration: BoxDecoration(
-                              color: hasSpecialCharacters
-                                  ? Colors.green
-                                  : Colors.white,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color: const Color.fromARGB(
-                                      255, 189, 189, 189))),
-                        ),
-                        SizedBox(
-                          width: 11,
-                        ),
-                        Text("Has Special Characters")
-                      ],
-                    ),
-                    SizedBox(height: 12),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          await register();
-                          
-                          if (!mounted) return;
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                // اسم الصفحه المراد الوصل اليها
-                                builder: (context) =>  Login()),
-                          );
-                        } else {
-                          showSnackBar(context, "Error");
-                        }
+    return Scaffold(
+       appBar: AppBar(
+      backgroundColor: appbarGreen,
+      title: Text("Register"),
+    ),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(33),
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                      keyboardType: TextInputType.text,
+                      obscureText: false,
+                      decoration: decorationtextfiled.copyWith(
+                          hintText: "Enter Your username :",
+                          suffixIcon: Icon(Icons.person))),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                      validator: (email) {
+                        return email!.contains(RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))
+                            ? null
+                            : "Enter a valid email";
                       },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(BTNgreen),
-                        padding: MaterialStateProperty.all(EdgeInsets.all(12)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8))),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      obscureText: false,
+                      decoration: decorationtextfiled.copyWith(
+                          hintText: "Enter Your email :",
+                          suffixIcon: Icon(Icons.email))
+                          ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                      onChanged: (password) {
+                        onpasswordchanged(password);
+                      },
+                      validator: (value) {
+                        return value!.length < 8
+                            ? "Enter at least 8 characters"
+                            : null;
+                      },
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: passwordController,
+                      keyboardType: TextInputType.text,
+                      obscureText: isvisable ? true : false,
+                      decoration: decorationtextfiled.copyWith(
+                          hintText: "Enter Your password :",
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  //  عكس القيمة تغير لاظهار الباسورد
+                                  isvisable = !isvisable;
+                                });
+                              },
+                              // تغير شكل ايكونة الباسورد علي حسب متغير
+                              icon: isvisable
+                                  ? Icon(Icons.visibility)
+                                  : Icon(Icons.visibility_off))
+                                  )
+                                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Container(
+                        child:
+                            Icon(Icons.check, color: Colors.white, size: 15),
+                        decoration: BoxDecoration(
+                            color:
+                                ispassword8char ? Colors.green : Colors.white,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: const Color.fromARGB(
+                                    255, 189, 189, 189))),
                       ),
-                      child:
-                          //  عمل قاعدة ايف المختصرة علي متغير بولين اذاكان ترو ينفذ دائرة تحميل داخل الزر اذاكان فولس يكتب نص
-                          isLoding
-                              ? CircularProgressIndicator(
-                                  color: const Color.fromARGB(255, 243, 13, 13),
-                                )
-                              : Text(
-                                  "Register",
-                                  style: TextStyle(fontSize: 19),
-                                ),
+                      SizedBox(
+                        width: 11,
+                      ),
+                      Text("At least 8 characters")
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Container(
+                        child:
+                            Icon(Icons.check, color: Colors.white, size: 15),
+                        decoration: BoxDecoration(
+                            color: ispasswordHas1number
+                                ? Colors.green
+                                : Colors.white,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: const Color.fromARGB(
+                                    255, 189, 189, 189))),
+                      ),
+                      SizedBox(
+                        width: 11,
+                      ),
+                      Text("At least 1 number")
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Container(
+                        child:
+                            Icon(Icons.check, color: Colors.white, size: 15),
+                        decoration: BoxDecoration(
+                            color: hasUppercase ? Colors.green : Colors.white,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: const Color.fromARGB(
+                                    255, 189, 189, 189))),
+                      ),
+                      SizedBox(
+                        width: 11,
+                      ),
+                      Text("Has Uppercase")
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Container(
+                        child:
+                            Icon(Icons.check, color: Colors.white, size: 15),
+                        decoration: BoxDecoration(
+                            color: hasLowercase ? Colors.green : Colors.white,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: const Color.fromARGB(
+                                    255, 189, 189, 189))),
+                      ),
+                      SizedBox(
+                        width: 11,
+                      ),
+                      Text("Has Lowercase")
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Container(
+                        child:
+                            Icon(Icons.check, color: Colors.white, size: 15),
+                        decoration: BoxDecoration(
+                            color: hasSpecialCharacters
+                                ? Colors.green
+                                : Colors.white,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: const Color.fromARGB(
+                                    255, 189, 189, 189))),
+                      ),
+                      SizedBox(
+                        width: 11,
+                      ),
+                      Text("Has Special Characters")
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await register();
+                        
+                        if (!mounted) return;
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              // اسم الصفحه المراد الوصل اليها
+                              builder: (context) =>  Login()),
+                        );
+                      } else {
+                        showSnackBar(context, "Error");
+                      }
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(BTNgreen),
+                      padding: MaterialStateProperty.all(EdgeInsets.all(12)),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Already have an account?",
-                            style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    // اسم الصفحه المراد الوصل اليها
-                                    builder: (context) =>  Login()),
-                              );
-                            },
-                            child: Text('sign in',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 20))),
-                      ],
-                    )
-                  ],
-                ),
+                    child:
+                        //  عمل قاعدة ايف المختصرة علي متغير بولين اذاكان ترو ينفذ دائرة تحميل داخل الزر اذاكان فولس يكتب نص
+                        isLoding
+                            ? CircularProgressIndicator(
+                                color: const Color.fromARGB(255, 243, 13, 13),
+                              )
+                            : Text(
+                                "Register",
+                                style: TextStyle(fontSize: 19),
+                              ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Already have an account?",
+                          style: TextStyle(fontSize: 18)),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  // اسم الصفحه المراد الوصل اليها
+                                  builder: (context) =>  Login()),
+                            );
+                          },
+                          child: Text('log in',
+                              style: TextStyle(
+                                   fontSize: 20,decoration: TextDecoration.underline))),
+                    ],
+                  )
+                ],
               ),
             ),
           ),
