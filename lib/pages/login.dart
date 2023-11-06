@@ -18,6 +18,7 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool isLoding = false;
+  bool isvisable = false;
 
   loginfun() async {
     setState(() {
@@ -62,14 +63,26 @@ class _LoginState extends State<Login> {
                     keyboardType: TextInputType.emailAddress,
                     obscureText: false,
                     decoration: decorationtextfiled.copyWith(
-                        hintText: "Enter Your email :")),
+                        hintText: "Enter Your email :",
+                        suffixIcon: Icon(Icons.email))),
                 const SizedBox(height: 20),
                 TextField(
                     controller: passwordController,
                     keyboardType: TextInputType.text,
-                    obscureText: true,
+                    obscureText: isvisable? false: true,
                     decoration: decorationtextfiled.copyWith(
-                        hintText: "Enter Your password :")),
+                        hintText: "Enter Your password :",
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                //  عكس القيمة تغير لاظهار الباسورد
+                                isvisable = !isvisable;
+                              });
+                            },
+                            // تغير شكل ايكونة الباسورد علي حسب متغير
+                            icon: isvisable
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off)))),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
