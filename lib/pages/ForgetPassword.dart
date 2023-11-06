@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:store_app/pages/login.dart';
 import 'package:store_app/shared/SnackBar.dart';
 import 'package:store_app/shared/colors.dart';
 import 'package:store_app/shared/contants.dart';
@@ -11,11 +13,25 @@ class Forgetpassword extends StatefulWidget {
 }
 
 class _ForgetpasswordState extends State<Forgetpassword> {
-   bool isLoding = false;
+  bool isLoding = false;
   final emailController = TextEditingController();
-final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
-
+  resetpassword() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: emailController.text);
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            // اسم الصفحه المراد الوصل اليها
+            builder: (context) => Login()),
+      );
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, "Error :  ${e.code}");
+    }
+  }
 
   @override
   void dispose() {
@@ -35,12 +51,12 @@ final _formKey = GlobalKey<FormState>();
         child: Padding(
           padding: const EdgeInsets.all(33),
           child: Form(
-            key:_formKey ,
+            key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text("Enter your email to rest your password.",
-                    style: TextStyle(fontSize: 18)),
+                    style: TextStyle(fontSize: 18.30)),
                 const SizedBox(height: 20),
                 TextFormField(
                     validator: (email) {
@@ -57,36 +73,32 @@ final _formKey = GlobalKey<FormState>();
                         hintText: "Enter Your email :",
                         suffixIcon: const Icon(Icons.email))),
                 const SizedBox(height: 20),
-          
-          
-          
-                 ElevatedButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            
-                            
-                            
-                          } else {
-                            showSnackBar(context, "Error");
-                          }
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(BTNgreen),
-                          padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8))),
-                        ),
-                        child:
-                            //  عمل قاعدة ايف المختصرة علي متغير بولين اذاكان ترو ينفذ دائرة تحميل داخل الزر اذاكان فولس يكتب نص
-                            isLoding
-                                ? const CircularProgressIndicator(
-                                    color: Color.fromARGB(255, 243, 13, 13),
-                                  )
-                                : const Text(
-                                    "Reset password",
-                                    style: TextStyle(fontSize: 19),
-                                  ),
-                      ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      resetpassword();
+                    } else {
+                      showSnackBar(context, "Error");
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(BTNgreen),
+                    padding:
+                        MaterialStateProperty.all(const EdgeInsets.all(12)),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8))),
+                  ),
+                  child:
+                      //  عمل قاعدة ايف المختصرة علي متغير بولين اذاكان ترو ينفذ دائرة تحميل داخل الزر اذاكان فولس يكتب نص
+                      isLoding
+                          ? const CircularProgressIndicator(
+                              color: Color.fromARGB(255, 243, 13, 13),
+                            )
+                          : const Text(
+                              "Reset password",
+                              style: TextStyle(fontSize: 19),
+                            ),
+                ),
               ],
             ),
           ),
