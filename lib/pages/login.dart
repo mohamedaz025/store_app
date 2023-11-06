@@ -30,26 +30,12 @@ class _LoginState extends State<Login> {
         password: passwordController.text,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        // print('No user found for that email.');
-        if (!mounted) return;
-        showSnackBar(context, "No user found for that email.");
-      } else if (e.code == 'wrong-password') {
-        // print('Wrong password provided for that user.');
-        if (!mounted) return;
-        showSnackBar(context, "Wrong password provided for that user.");
-      } else {
-        if (!mounted) return;
-        showSnackBar(context, "ERROR - Please try again late.");
-      }
+      showSnackBar(context, "Error :  ${e.code}");
 
-    setState(() {
-      isLoding = false;
-    });
-
+      setState(() {
+        isLoding = false;
+      });
     }
-
-
   }
 
   @override
@@ -98,13 +84,13 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(8))),
                   ),
                   child: isLoding
-                              ? CircularProgressIndicator(
-                                  color: const Color.fromARGB(255, 243, 13, 13),
-                                )
-                              : Text(
-                                  "Sign in",
-                                  style: TextStyle(fontSize: 19),
-                                ),
+                      ? CircularProgressIndicator(
+                          color: const Color.fromARGB(255, 243, 13, 13),
+                        )
+                      : Text(
+                          "Sign in",
+                          style: TextStyle(fontSize: 19),
+                        ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
