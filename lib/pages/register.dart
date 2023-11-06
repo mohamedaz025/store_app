@@ -240,7 +240,9 @@ class _RegisterState extends State<Register> {
                           child:
                               Icon(Icons.check, color: Colors.white, size: 15),
                           decoration: BoxDecoration(
-                              color: hasSpecialCharacters? Colors.green: Colors.white,
+                              color: hasSpecialCharacters
+                                  ? Colors.green
+                                  : Colors.white,
                               shape: BoxShape.circle,
                               border: Border.all(
                                   color: const Color.fromARGB(
@@ -254,9 +256,17 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: 12),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          register();
+                          await register();
+                          
+                          if (!mounted) return;
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                // اسم الصفحه المراد الوصل اليها
+                                builder: (context) =>  Login()),
+                          );
                         } else {
                           showSnackBar(context, "Error");
                         }
@@ -289,7 +299,7 @@ class _RegisterState extends State<Register> {
                                 context,
                                 MaterialPageRoute(
                                     // اسم الصفحه المراد الوصل اليها
-                                    builder: (context) => const Login()),
+                                    builder: (context) =>  Login()),
                               );
                             },
                             child: Text('sign in',

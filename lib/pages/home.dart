@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/model/item.dart';
 import 'package:store_app/pages/checkout.dart';
@@ -60,7 +61,7 @@ class Home extends StatelessWidget {
                 ListTile(
                     title: Text("Logout"),
                     leading: Icon(Icons.exit_to_app),
-                    onTap: () {}),
+                    onTap: () async{await FirebaseAuth.instance.signOut();}),
               ],
             ),
             Container(
