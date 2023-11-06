@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, sort_child_properties_last
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/pages/login.dart';
+import 'package:store_app/shared/SnackBar.dart';
 import 'package:store_app/shared/colors.dart';
 import 'package:store_app/shared/contants.dart';
 
@@ -14,9 +15,21 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  bool isvisable = true;
+  final _formKey = GlobalKey<FormState>();
   bool isLoding = false;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  bool ispassword8char = false;
+  onpasswordchanged(String password) {
+    ispassword8char = false;
+    setState(() {
+      if (password.contains(RegExp(r'.{8,}'))) {
+        ispassword8char = true;
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -38,12 +51,17 @@ class _RegisterState extends State<Register> {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        // print('The password provided is too weak.');
+        // استدعاء شريط اشعرات من الاسفل وكتابة جمله بداخلة
+        showSnackBar(context, "The password provided is too weak.");
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        // print('The account already exists for that email.');
+        showSnackBar(context, "The account already exists for that email.");
+      } else {
+        showSnackBar(context, "ERROR - Please try again late.");
       }
     } catch (e) {
-      print(e);
+      showSnackBar(context, e.toString());
     }
     setState(() {
       isLoding = false;
@@ -57,68 +75,204 @@ class _RegisterState extends State<Register> {
         body: Center(
           child: Padding(
             padding: EdgeInsets.all(33),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextField(
-                    keyboardType: TextInputType.text,
-                    obscureText: false,
-                    decoration: decorationtextfiled.copyWith(
-                        hintText: "Enter Your username :")),
-                const SizedBox(height: 20),
-                TextField(
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    obscureText: false,
-                    decoration: decorationtextfiled.copyWith(
-                        hintText: "Enter Your email :")),
-                const SizedBox(height: 20),
-                TextField(
-                    controller: passwordController,
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    decoration: decorationtextfiled.copyWith(
-                        hintText: "Enter Your password :")),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    register();
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(BTNgreen),
-                    padding: MaterialStateProperty.all(EdgeInsets.all(12)),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8))),
-                  ),
-                  child: isLoding
-                      ? CircularProgressIndicator(
-                          color: Colors.white,
-                        )
-                      : Text(
-                          "Register",
-                          style: TextStyle(fontSize: 19),
-                        ),
-                ),
-                Row(
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account?",
-                        style: TextStyle(fontSize: 18)),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                // اسم الصفحه المراد الوصل اليها
-                                builder: (context) => const Login()),
-                          );
+                    TextField(
+                        keyboardType: TextInputType.text,
+                        obscureText: false,
+                        decoration: decorationtextfiled.copyWith(
+                            hintText: "Enter Your username :",
+                            suffixIcon: Icon(Icons.person))),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                        validator: (email) {
+                          return email!.contains(RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))
+                              ? null
+                              : "Enter a valid email";
                         },
-                        child: Text('sign in',
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20))),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        obscureText: false,
+                        decoration: decorationtextfiled.copyWith(
+                            hintText: "Enter Your email :",
+                            suffixIcon: Icon(Icons.email))),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                        onChanged: (password) {
+                          onpasswordchanged(password);
+                        },
+                        validator: (value) {
+                          return value!.length < 8
+                              ? "Enter at least 8 characters"
+                              : null;
+                        },
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        controller: passwordController,
+                        keyboardType: TextInputType.text,
+                        obscureText: isvisable ? true : false,
+                        decoration: decorationtextfiled.copyWith(
+                            hintText: "Enter Your password :",
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    //  عكس القيمة تغير لاظهار الباسورد
+                                    isvisable = !isvisable;
+                                  });
+                                },
+                                // تغير شكل ايكونة الباسورد علي حسب متغير
+                                icon: isvisable
+                                    ? Icon(Icons.visibility)
+                                    : Icon(Icons.visibility_off)))),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Container(
+                          child:
+                              Icon(Icons.check, color: Colors.white, size: 15),
+                          decoration: BoxDecoration(
+                              color:
+                                  ispassword8char ? Colors.green : Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: const Color.fromARGB(
+                                      255, 189, 189, 189))),
+                        ),
+                        SizedBox(
+                          width: 11,
+                        ),
+                        Text("At least 8 characters")
+                      ],
+                    ),
+                    SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Container(
+                          child:
+                              Icon(Icons.check, color: Colors.white, size: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: const Color.fromARGB(
+                                      255, 189, 189, 189))),
+                        ),
+                        SizedBox(
+                          width: 11,
+                        ),
+                        Text("At least 1 number")
+                      ],
+                    ),
+                    SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Container(
+                          child:
+                              Icon(Icons.check, color: Colors.white, size: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: const Color.fromARGB(
+                                      255, 189, 189, 189))),
+                        ),
+                        SizedBox(
+                          width: 11,
+                        ),
+                        Text("Has Uppercase")
+                      ],
+                    ),
+                    SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Container(
+                          child:
+                              Icon(Icons.check, color: Colors.white, size: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: const Color.fromARGB(
+                                      255, 189, 189, 189))),
+                        ),
+                        SizedBox(
+                          width: 11,
+                        ),
+                        Text("Has Lowercase")
+                      ],
+                    ),
+                    SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Container(
+                          child:
+                              Icon(Icons.check, color: Colors.white, size: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: const Color.fromARGB(
+                                      255, 189, 189, 189))),
+                        ),
+                        SizedBox(
+                          width: 11,
+                        ),
+                        Text("Has Special Characters")
+                      ],
+                    ),
+                    SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          register();
+                        } else {
+                          showSnackBar(context, "Error");
+                        }
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(BTNgreen),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(12)),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
+                      ),
+                      child:
+                          //  عمل قاعدة ايف المختصرة علي متغير بولين اذاكان ترو ينفذ دائرة تحميل داخل الزر اذاكان فولس يكتب نص
+                          isLoding
+                              ? CircularProgressIndicator(
+                                  color: const Color.fromARGB(255, 243, 13, 13),
+                                )
+                              : Text(
+                                  "Register",
+                                  style: TextStyle(fontSize: 19),
+                                ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Already have an account?",
+                            style: TextStyle(fontSize: 18)),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    // اسم الصفحه المراد الوصل اليها
+                                    builder: (context) => const Login()),
+                              );
+                            },
+                            child: Text('sign in',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20))),
+                      ],
+                    )
                   ],
-                )
-              ],
+                ),
+              ),
             ),
           ),
         ),
