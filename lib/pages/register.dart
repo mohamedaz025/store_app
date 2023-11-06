@@ -22,11 +22,36 @@ class _RegisterState extends State<Register> {
   final passwordController = TextEditingController();
 
   bool ispassword8char = false;
+  bool ispasswordHas1number = false;
+  bool hasUppercase = false;
+  bool hasLowercase = false;
+  bool hasSpecialCharacters = false;
+
   onpasswordchanged(String password) {
     ispassword8char = false;
+    ispasswordHas1number = false;
+    hasUppercase = false;
+    hasLowercase = false;
+    hasSpecialCharacters = false;
     setState(() {
       if (password.contains(RegExp(r'.{8,}'))) {
         ispassword8char = true;
+      }
+
+      if (password.contains(RegExp(r'[0-9]'))) {
+        ispasswordHas1number = true;
+      }
+
+      if (password.contains(RegExp(r'[A-Z]'))) {
+        hasUppercase = true;
+      }
+
+      if (password.contains(RegExp(r'[a-z]'))) {
+        hasLowercase = true;
+      }
+
+      if (password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+        hasSpecialCharacters = true;
       }
     });
   }
@@ -156,7 +181,9 @@ class _RegisterState extends State<Register> {
                           child:
                               Icon(Icons.check, color: Colors.white, size: 15),
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: ispasswordHas1number
+                                  ? Colors.green
+                                  : Colors.white,
                               shape: BoxShape.circle,
                               border: Border.all(
                                   color: const Color.fromARGB(
@@ -175,7 +202,7 @@ class _RegisterState extends State<Register> {
                           child:
                               Icon(Icons.check, color: Colors.white, size: 15),
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: hasUppercase ? Colors.green : Colors.white,
                               shape: BoxShape.circle,
                               border: Border.all(
                                   color: const Color.fromARGB(
@@ -194,7 +221,7 @@ class _RegisterState extends State<Register> {
                           child:
                               Icon(Icons.check, color: Colors.white, size: 15),
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: hasLowercase ? Colors.green : Colors.white,
                               shape: BoxShape.circle,
                               border: Border.all(
                                   color: const Color.fromARGB(
@@ -213,7 +240,7 @@ class _RegisterState extends State<Register> {
                           child:
                               Icon(Icons.check, color: Colors.white, size: 15),
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: hasSpecialCharacters? Colors.green: Colors.white,
                               shape: BoxShape.circle,
                               border: Border.all(
                                   color: const Color.fromARGB(
