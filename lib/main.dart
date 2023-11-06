@@ -14,6 +14,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 
+import 'package:store_app/shared/SnackBar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,9 +39,17 @@ class MyApp extends StatelessWidget {
           home: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                    child: CircularProgressIndicator(
+                  color: Colors.white,
+                ));
+              } else if (snapshot.hasError) {
+                return showSnackBar(context, "Something went wrong");
+              }
               if (snapshot.hasData) {
                 return Home();
-              }else{
+              } else {
                 return Login();
               }
             },

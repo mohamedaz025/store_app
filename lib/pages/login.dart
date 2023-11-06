@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/pages/register.dart';
@@ -13,11 +15,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool isLoding = false;
 
   loginfun() async {
+    setState(() {
+      isLoding = true;
+    });
+
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
@@ -26,12 +32,24 @@ class _LoginState extends State<Login> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         // print('No user found for that email.');
+        if (!mounted) return;
+        showSnackBar(context, "No user found for that email.");
       } else if (e.code == 'wrong-password') {
         // print('Wrong password provided for that user.');
-      }else {
+        if (!mounted) return;
+        showSnackBar(context, "Wrong password provided for that user.");
+      } else {
+        if (!mounted) return;
         showSnackBar(context, "ERROR - Please try again late.");
       }
+
+    setState(() {
+      isLoding = false;
+    });
+
     }
+
+
   }
 
   @override
@@ -79,10 +97,14 @@ class _LoginState extends State<Login> {
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8))),
                   ),
-                  child: const Text(
-                    "Sign in",
-                    style: TextStyle(fontSize: 19),
-                  ),
+                  child: isLoding
+                              ? CircularProgressIndicator(
+                                  color: const Color.fromARGB(255, 243, 13, 13),
+                                )
+                              : Text(
+                                  "Sign in",
+                                  style: TextStyle(fontSize: 19),
+                                ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -90,17 +112,19 @@ class _LoginState extends State<Login> {
                     const Text("Do not have account?",
                         style: TextStyle(fontSize: 18)),
                     TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                // اسم الصفحه المراد الوصل اليها
-                                builder: (context) => Register()),
-                          );
-                        },
-                        child: const Text('sign up',
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20))),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              // اسم الصفحه المراد الوصل اليها
+                              builder: (context) => Register()),
+                        );
+                      },
+                      child: Text(
+                        "Register",
+                        style: TextStyle(fontSize: 19),
+                      ),
+                    ),
                   ],
                 )
               ],
