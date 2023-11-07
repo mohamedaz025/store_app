@@ -11,7 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:store_app/provirder/google_Login.dart';
 import 'dart:async';
 import 'package:store_app/shared/SnackBar.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 Future<void> main() async {

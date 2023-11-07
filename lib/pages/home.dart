@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/model/item.dart';
+import 'package:store_app/pages/Profile%20_page.dart';
 import 'package:store_app/pages/checkout.dart';
 import 'package:store_app/pages/details_screen.dart';
 import 'package:store_app/provirder/card.dart';
@@ -60,6 +61,11 @@ class Home extends StatelessWidget {
                     title: Text("About"),
                     leading: Icon(Icons.help_center),
                     onTap: () {}),
+                    ListTile(
+                    title: Text("Profile Page"),
+                    leading: Icon(Icons.person),
+                    onTap: () { Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Profile_Page()));}),
                 ListTile(
                     title: Text("Logout"),
                     leading: Icon(Icons.exit_to_app),

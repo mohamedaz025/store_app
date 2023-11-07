@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, sort_child_properties_last
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/pages/login.dart';
@@ -18,6 +19,9 @@ class _RegisterState extends State<Register> {
   bool isvisable = true;
   final _formKey = GlobalKey<FormState>();
   bool isLoding = false;
+  final usernameController = TextEditingController();
+  final ageController = TextEditingController();
+  final titleController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -59,6 +63,9 @@ class _RegisterState extends State<Register> {
   @override
   void dispose() {
     // TODO: implement dispose
+    usernameController.dispose();
+    ageController.dispose();
+    titleController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -74,6 +81,23 @@ class _RegisterState extends State<Register> {
         email: emailController.text,
         password: passwordController.text,
       );
+
+      print(credential.user!.uid);
+
+//ارسال الداتا
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('userSSS');
+      users
+          .doc(credential.user!.uid)
+          .set({
+            'username': usernameController.text,
+            'age': ageController.text,
+            'title': titleController,
+            'email': emailController.text,
+            'password': passwordController.text,
+          })
+          .then((value) => print("user Added"))
+          .catchError((error) => print("Failed to add user"));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         // print('The password provided is too weak.');
@@ -96,10 +120,10 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-      backgroundColor: appbarGreen,
-      title: Text("Register"),
-    ),
+      appBar: AppBar(
+        backgroundColor: appbarGreen,
+        title: Text("Register"),
+      ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(33),
@@ -110,11 +134,28 @@ class _RegisterState extends State<Register> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextField(
+                      controller: usernameController,
                       keyboardType: TextInputType.text,
                       obscureText: false,
                       decoration: decorationtextfiled.copyWith(
                           hintText: "Enter Your username :",
                           suffixIcon: Icon(Icons.person))),
+                  const SizedBox(height: 20),
+                  TextField(
+                      controller: ageController,
+                      keyboardType: TextInputType.number,
+                      obscureText: false,
+                      decoration: decorationtextfiled.copyWith(
+                          hintText: "Enter Your age :",
+                          suffixIcon: Icon(Icons.pest_control_rodent))),
+                  const SizedBox(height: 20),
+                  TextField(
+                      controller: titleController,
+                      keyboardType: TextInputType.text,
+                      obscureText: false,
+                      decoration: decorationtextfiled.copyWith(
+                          hintText: "Enter Your title :",
+                          suffixIcon: Icon(Icons.person_outlined))),
                   const SizedBox(height: 20),
                   TextFormField(
                       validator: (email) {
@@ -129,8 +170,7 @@ class _RegisterState extends State<Register> {
                       obscureText: false,
                       decoration: decorationtextfiled.copyWith(
                           hintText: "Enter Your email :",
-                          suffixIcon: Icon(Icons.email))
-                          ),
+                          suffixIcon: Icon(Icons.email))),
                   const SizedBox(height: 20),
                   TextFormField(
                       onChanged: (password) {
@@ -157,22 +197,19 @@ class _RegisterState extends State<Register> {
                               // تغير شكل ايكونة الباسورد علي حسب متغير
                               icon: isvisable
                                   ? Icon(Icons.visibility)
-                                  : Icon(Icons.visibility_off))
-                                  )
-                                  ),
+                                  : Icon(Icons.visibility_off)))),
                   const SizedBox(height: 20),
                   Row(
                     children: [
                       Container(
-                        child:
-                            Icon(Icons.check, color: Colors.white, size: 15),
+                        child: Icon(Icons.check, color: Colors.white, size: 15),
                         decoration: BoxDecoration(
                             color:
                                 ispassword8char ? Colors.green : Colors.white,
                             shape: BoxShape.circle,
                             border: Border.all(
-                                color: const Color.fromARGB(
-                                    255, 189, 189, 189))),
+                                color:
+                                    const Color.fromARGB(255, 189, 189, 189))),
                       ),
                       SizedBox(
                         width: 11,
@@ -184,16 +221,15 @@ class _RegisterState extends State<Register> {
                   Row(
                     children: [
                       Container(
-                        child:
-                            Icon(Icons.check, color: Colors.white, size: 15),
+                        child: Icon(Icons.check, color: Colors.white, size: 15),
                         decoration: BoxDecoration(
                             color: ispasswordHas1number
                                 ? Colors.green
                                 : Colors.white,
                             shape: BoxShape.circle,
                             border: Border.all(
-                                color: const Color.fromARGB(
-                                    255, 189, 189, 189))),
+                                color:
+                                    const Color.fromARGB(255, 189, 189, 189))),
                       ),
                       SizedBox(
                         width: 11,
@@ -205,14 +241,13 @@ class _RegisterState extends State<Register> {
                   Row(
                     children: [
                       Container(
-                        child:
-                            Icon(Icons.check, color: Colors.white, size: 15),
+                        child: Icon(Icons.check, color: Colors.white, size: 15),
                         decoration: BoxDecoration(
                             color: hasUppercase ? Colors.green : Colors.white,
                             shape: BoxShape.circle,
                             border: Border.all(
-                                color: const Color.fromARGB(
-                                    255, 189, 189, 189))),
+                                color:
+                                    const Color.fromARGB(255, 189, 189, 189))),
                       ),
                       SizedBox(
                         width: 11,
@@ -224,14 +259,13 @@ class _RegisterState extends State<Register> {
                   Row(
                     children: [
                       Container(
-                        child:
-                            Icon(Icons.check, color: Colors.white, size: 15),
+                        child: Icon(Icons.check, color: Colors.white, size: 15),
                         decoration: BoxDecoration(
                             color: hasLowercase ? Colors.green : Colors.white,
                             shape: BoxShape.circle,
                             border: Border.all(
-                                color: const Color.fromARGB(
-                                    255, 189, 189, 189))),
+                                color:
+                                    const Color.fromARGB(255, 189, 189, 189))),
                       ),
                       SizedBox(
                         width: 11,
@@ -243,16 +277,15 @@ class _RegisterState extends State<Register> {
                   Row(
                     children: [
                       Container(
-                        child:
-                            Icon(Icons.check, color: Colors.white, size: 15),
+                        child: Icon(Icons.check, color: Colors.white, size: 15),
                         decoration: BoxDecoration(
                             color: hasSpecialCharacters
                                 ? Colors.green
                                 : Colors.white,
                             shape: BoxShape.circle,
                             border: Border.all(
-                                color: const Color.fromARGB(
-                                    255, 189, 189, 189))),
+                                color:
+                                    const Color.fromARGB(255, 189, 189, 189))),
                       ),
                       SizedBox(
                         width: 11,
@@ -265,13 +298,13 @@ class _RegisterState extends State<Register> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         await register();
-                        
+
                         if (!mounted) return;
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               // اسم الصفحه المراد الوصل اليها
-                              builder: (context) =>  Login()),
+                              builder: (context) => Login()),
                         );
                       } else {
                         showSnackBar(context, "Error");
@@ -305,12 +338,13 @@ class _RegisterState extends State<Register> {
                               context,
                               MaterialPageRoute(
                                   // اسم الصفحه المراد الوصل اليها
-                                  builder: (context) =>  Login()),
+                                  builder: (context) => Login()),
                             );
                           },
                           child: Text('log in',
                               style: TextStyle(
-                                   fontSize: 20,decoration: TextDecoration.underline))),
+                                  fontSize: 20,
+                                  decoration: TextDecoration.underline))),
                     ],
                   )
                 ],
