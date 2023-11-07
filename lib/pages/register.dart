@@ -82,19 +82,18 @@ class _RegisterState extends State<Register> {
         password: passwordController.text,
       );
 
-      print(credential.user!.uid);
+      
 
 //ارسال الداتا
       CollectionReference users =
-          FirebaseFirestore.instance.collection('userSSS');
+          FirebaseFirestore.instance.collection('uesers');
       users
           .doc(credential.user!.uid)
           .set({
             'username': usernameController.text,
             'age': ageController.text,
-            'title': titleController,
             'email': emailController.text,
-            'password': passwordController.text,
+            'password': passwordController.text
           })
           .then((value) => print("user Added"))
           .catchError((error) => print("Failed to add user"));
@@ -149,14 +148,7 @@ class _RegisterState extends State<Register> {
                           hintText: "Enter Your age :",
                           suffixIcon: Icon(Icons.pest_control_rodent))),
                   const SizedBox(height: 20),
-                  TextField(
-                      controller: titleController,
-                      keyboardType: TextInputType.text,
-                      obscureText: false,
-                      decoration: decorationtextfiled.copyWith(
-                          hintText: "Enter Your title :",
-                          suffixIcon: Icon(Icons.person_outlined))),
-                  const SizedBox(height: 20),
+
                   TextFormField(
                       validator: (email) {
                         return email!.contains(RegExp(
