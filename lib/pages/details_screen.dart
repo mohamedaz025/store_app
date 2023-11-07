@@ -78,13 +78,13 @@ class _DetailsState extends State<Details> {
             SizedBox(
               width: double.infinity,
               child: Text(
-                "${widget.prodact.name}",
+                widget.prodact.name,
                 style: TextStyle(fontSize: 22),
                 textAlign: TextAlign.start,
               ),
             ),
             Text(
-              "${widget.prodact.details}",
+              widget.prodact.details,
               style: TextStyle(fontSize: 29),
               maxLines: isshowmore ? 3 : null,
               overflow: TextOverflow.fade,

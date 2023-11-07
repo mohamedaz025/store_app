@@ -6,7 +6,7 @@ import 'package:store_app/shared/colors.dart';
 import 'package:store_app/shared/contants.dart';
 
 class Forgetpassword extends StatefulWidget {
-  Forgetpassword({super.key});
+  const Forgetpassword({super.key});
 
   @override
   State<Forgetpassword> createState() => _ForgetpasswordState();
@@ -26,7 +26,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
         context,
         MaterialPageRoute(
             // اسم الصفحه المراد الوصل اليها
-            builder: (context) => Login()),
+            builder: (context) => const Login()),
       );
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, "Error :  ${e.code}");

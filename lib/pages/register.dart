@@ -8,7 +8,7 @@ import 'package:store_app/shared/colors.dart';
 import 'package:store_app/shared/contants.dart';
 
 class Register extends StatefulWidget {
-  Register({super.key});
+  const Register({super.key});
 
   @override
   State<Register> createState() => _RegisterState();

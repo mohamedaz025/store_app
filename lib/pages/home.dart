@@ -16,6 +16,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final carttt = Provider.of<Cared>(context);
+    final userrr = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       // لعمل قائمة منيو من اليسار
       drawer: Drawer(
@@ -35,9 +36,10 @@ class Home extends StatelessWidget {
                   currentAccountPicture: CircleAvatar(
                     radius: 55,
                     backgroundImage: AssetImage("assets/img/my.jpg"),
+                    
                   ),
                   accountName: Text("mohamedtarek"),
-                  accountEmail: Text("mohamedaz025@gmail.com"),
+                  accountEmail: Text("mohamedaz025"),
                 ),
                 // لعمل ايكون بجانب نص
                 ListTile(
@@ -61,7 +63,9 @@ class Home extends StatelessWidget {
                 ListTile(
                     title: Text("Logout"),
                     leading: Icon(Icons.exit_to_app),
-                    onTap: () async{await FirebaseAuth.instance.signOut();}),
+                    onTap: () async {
+                      await FirebaseAuth.instance.signOut();
+                    }),
               ],
             ),
             Container(
@@ -125,8 +129,8 @@ class Home extends StatelessWidget {
                   footer: GridTileBar(
                     trailing: Container(
                       decoration: BoxDecoration(
-                        color:  const Color.fromARGB(255, 255, 192, 192),
-                        borderRadius: BorderRadius.circular(10)),
+                          color: const Color.fromARGB(255, 255, 192, 192),
+                          borderRadius: BorderRadius.circular(10)),
                       child: IconButton(
                         color: Colors.green,
                         iconSize: 40,
