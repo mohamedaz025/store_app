@@ -21,7 +21,6 @@ class _RegisterState extends State<Register> {
   bool isLoding = false;
   final usernameController = TextEditingController();
   final ageController = TextEditingController();
-  final titleController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -65,7 +64,6 @@ class _RegisterState extends State<Register> {
     // TODO: implement dispose
     usernameController.dispose();
     ageController.dispose();
-    titleController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -81,8 +79,6 @@ class _RegisterState extends State<Register> {
         email: emailController.text,
         password: passwordController.text,
       );
-
-      
 
 //ارسال الداتا
       CollectionReference users =
@@ -148,7 +144,6 @@ class _RegisterState extends State<Register> {
                           hintText: "Enter Your age :",
                           suffixIcon: Icon(Icons.pest_control_rodent))),
                   const SizedBox(height: 20),
-
                   TextFormField(
                       validator: (email) {
                         return email!.contains(RegExp(

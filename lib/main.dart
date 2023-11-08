@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:store_app/firebase_options.dart';
 import 'package:store_app/pages/home.dart';
 import 'package:store_app/pages/login.dart';
+import 'package:store_app/pages/test.dart';
 import 'package:store_app/provirder/card.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +13,7 @@ import 'package:store_app/provirder/google_Login.dart';
 import 'dart:async';
 import 'package:store_app/shared/SnackBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:store_app/shared/red_dada_from_fierstor.dart';
 
 
 Future<void> main() async {

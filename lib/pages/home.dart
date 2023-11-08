@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/model/item.dart';
@@ -10,14 +11,22 @@ import 'package:store_app/provirder/card.dart';
 import 'package:store_app/shared/apppar.dart';
 import 'package:store_app/shared/colors.dart';
 import 'package:provider/provider.dart';
+import 'package:store_app/shared/red_dada_from_fierstor.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
-    final carttt = Provider.of<Cared>(context);
-    final userrr = FirebaseAuth.instance.currentUser!;
+  final carttt = Provider.of<Cared>(context);
+  final userrr = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       // لعمل قائمة منيو من اليسار
       drawer: Drawer(
@@ -65,7 +74,7 @@ class Home extends StatelessWidget {
                     title: Text("Profile Page"),
                     leading: Icon(Icons.person),
                     onTap: () { Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Profile_Page()));}),
+                          MaterialPageRoute(builder: (context) => ProfilePage()));}),
                 ListTile(
                     title: Text("Logout"),
                     leading: Icon(Icons.exit_to_app),
