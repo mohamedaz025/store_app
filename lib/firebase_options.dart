@@ -66,6 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '11015802386',
     projectId: 'belquis-app',
     storageBucket: 'belquis-app.appspot.com',
+    androidClientId: '11015802386-vripe36prctpi0ktrmq558sieh5m2u8l.apps.googleusercontent.com',
+    iosClientId: '11015802386-02s0tn9cn7gll74acua2g64u1k8mccdd.apps.googleusercontent.com',
     iosBundleId: 'com.example.storeApp',
   );
 
@@ -75,6 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '11015802386',
     projectId: 'belquis-app',
     storageBucket: 'belquis-app.appspot.com',
+    androidClientId: '11015802386-vripe36prctpi0ktrmq558sieh5m2u8l.apps.googleusercontent.com',
+    iosClientId: '11015802386-bee42cm8hgtq8nskjsh1ddo4ul1svb5j.apps.googleusercontent.com',
     iosBundleId: 'com.example.storeApp.RunnerTests',
   );
 }

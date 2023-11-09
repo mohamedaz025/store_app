@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store_app/firebase_options.dart';
 import 'package:store_app/pages/home.dart';
+import 'package:store_app/pages/home_hotel.dart';
 import 'package:store_app/pages/login.dart';
 import 'package:store_app/provirder/card.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,9 +33,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) {
           return Cared();
         }),
-        ChangeNotifierProvider(create: (context) {
-          return GoogleSignInProvider();
-        }),
+
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
 class Item {
   String imgPath;
   double price;
@@ -84,3 +87,14 @@ final List<Item> item = [
       star: "⭐⭐⭐⭐⭐⭐⭐⭐"
       ),
 ];
+ 
+
+
+
+
+
+
+
+
+
+

@@ -17,7 +17,7 @@ final credential = FirebaseAuth.instance.currentUser;
 CollectionReference users = FirebaseFirestore.instance.collection('uesers');
 
 class _GetdataFromfierstorState extends State<GetdataFromfierstor> {
-  mydilog(Map data,dynamic mykey) {
+  mydilog(Map data, dynamic mykey) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -33,8 +33,7 @@ class _GetdataFromfierstorState extends State<GetdataFromfierstor> {
                 TextField(
                     controller: dialogusernameController,
                     maxLength: 20,
-                    decoration:
-                        InputDecoration(hintText: "${data[mykey]}")),
+                    decoration: InputDecoration(hintText: "${data[mykey]}")),
                 const SizedBox(
                   height: 22,
                 ),
@@ -43,10 +42,12 @@ class _GetdataFromfierstorState extends State<GetdataFromfierstor> {
                   children: [
                     TextButton(
                         onPressed: () {
-                          users.doc(credential!.uid).update(
-                              {mykey: dialogusernameController.text});
+                          users
+                              .doc(credential!.uid)
+                              .update({mykey: dialogusernameController.text});
                           setState(() {
                             Navigator.pop(context);
+                            dialogusernameController.clear();
                           });
                         },
                         child: const Text(
@@ -104,7 +105,7 @@ class _GetdataFromfierstorState extends State<GetdataFromfierstor> {
                   ),
                   IconButton(
                       onPressed: () {
-                       mydilog(data,'username');
+                        mydilog(data, 'username');
                       },
                       icon: const Icon(Icons.edit))
                 ],

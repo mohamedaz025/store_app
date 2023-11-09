@@ -53,7 +53,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final googlelogInProvider = Provider.of<GoogleSignInProvider>(context);
+   
     return Scaffold(
         appBar: AppBar(
           backgroundColor: appbarGreen,
@@ -180,7 +180,7 @@ class _LoginState extends State<Login> {
                     margin: EdgeInsets.symmetric(vertical: 20),
                     child: GestureDetector(
                       onTap: () {
-                        googlelogInProvider.googlelogin();
+                        // googlelogInProvider.googlelogin();
                       },
                       child: Container(
                         padding: EdgeInsets.all(13),
