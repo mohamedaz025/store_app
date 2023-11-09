@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/hotel_details.dart';
 import 'package:store_app/model/item.dart';
+import 'package:store_app/pages/Add_hotel.dart';
 import 'package:store_app/pages/Profile%20_page.dart';
 import 'package:store_app/pages/checkout.dart';
 import 'package:store_app/pages/details_screen.dart';
@@ -17,7 +18,6 @@ class HomeHotel extends StatefulWidget {
 }
 
 class _HomeHotelState extends State<HomeHotel> {
-  late var ides;
   // تخذين الفير استور داخل متغير
   final _firestore = FirebaseFirestore.instance;
   // تخذين الاميلات في متغير
@@ -151,6 +151,17 @@ class _HomeHotelState extends State<HomeHotel> {
                     onTap: () async {
                       await FirebaseAuth.instance.signOut();
                     }),
+                ListTile(
+                    title: const Text("AddHotel"),
+                    leading: const Icon(Icons.add_card),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            // اسم الصفحه المراد الوصل اليها
+                            builder: (context) =>  AddHotel()),
+                      );
+                    }),
               ],
             ),
             Container(
@@ -194,17 +205,18 @@ class _HomeHotelState extends State<HomeHotel> {
                 final hohels = snapshots.data!.docs;
                 for (var hotel in hohels) {
                   final hotelnames = hotel.get('namehotel');
-                  final hotelprice = hotel.get('hotel1_price');
                   final link_img_1 = hotel.get('link_img_1');
                   final link_img_2 = hotel.get('link_img_2');
+                  final locationHotel = hotel.get('locationHotel');
                   final stars = hotel.get('stars');
-                  ides = hotel.id;
+
                   final hotelwidgete = HohelData(
-                      price: hotelprice,
+
                       link_img1: link_img_1,
-                      link_img_2: link_img_2,
+                      link_img_2: link_img_2  ,
+                      locationHotel: locationHotel,
                       stars: stars,
-                      hotel: hotelnames);
+                      hotelname: hotelnames);
 
                   // اضافو لاعناصر داخل الليست
                   hotelwidgets.add(hotelwidgete);
@@ -234,20 +246,22 @@ class _HomeHotelState extends State<HomeHotel> {
 }
 
 class HohelData extends StatelessWidget {
-  const HohelData({
-    this.hotel,
+  HohelData({
+    super.key,
+    this.hotelname,
     this.link_img1,
     this.stars,
-    this.price,
+
     this.link_img_2,
-    super.key,
+    this.locationHotel,
   });
 
-  final String? hotel;
+  final String? hotelname;
   final String? link_img1;
   final String? link_img_2;
+  final String? locationHotel;
   final String? stars;
-  final String? price;
+
 
   @override
   Widget build(BuildContext context) {
@@ -262,13 +276,14 @@ class HohelData extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => Hotel_details(
-                          hotel: hotel.toString(),
+                          hotelname: hotelname.toString(),
                           link_img1: link_img1.toString(),
-                          price: price.toString(),
-                          link_img_2: link_img_2.toString(),
-                          stars: stars.toString())));
 
-              print("$hotel,$price,$link_img1");
+                          link_img_2: link_img_2.toString(),
+                          stars: stars.toString(),
+                          locationHote: locationHotel.toString())));
+
+              print("$locationHotel");
             },
             child: GridTile(
               child: Stack(
@@ -305,9 +320,27 @@ class HohelData extends StatelessWidget {
             color: Colors.blue,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Text(
-                '$hotel  - $price',
-                style: const TextStyle(fontSize: 15, color: Colors.white),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '$hotelname ',
+                    style: const TextStyle(fontSize: 15, color: Colors.white),
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_pin,
+                        color: Colors.orange,
+                      ),
+                      Text(
+                        '$locationHotel ',
+                        style:
+                            const TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

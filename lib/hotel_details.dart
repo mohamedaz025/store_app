@@ -1,29 +1,34 @@
+// ignore_for_file: sort_child_properties_last, unnecessary_string_interpolations
+
 import 'package:flutter/material.dart';
 
 class Hotel_details extends StatelessWidget {
-  String hotel;
+  String hotelname;
   String link_img1;
   String link_img_2;
   String stars;
-  String price;
-  Hotel_details(
-      {super.key,
-      required this.hotel,
-      required this.link_img1,
-      required this.link_img_2,
-      required this.stars,
-      required this.price});
+  
+  late String locationHote;
+  Hotel_details({
+    super.key,
+    required this.hotelname,
+    required this.link_img1,
+    required this.link_img_2,
+    required this.stars,
+    required this.locationHote,
+  });
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hotel_details  "),
+        title: const Text("Hotel_details  "),
       ),
-      body: Column(
-        children: [
-          SingleChildScrollView(
-          scrollDirection: Axis.horizontal,    
+      body: Column(children: [
+        SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
             child: Row(
               children: [
                 Padding(
@@ -46,7 +51,7 @@ class Hotel_details extends StatelessWidget {
                     ),
                   ),
                 ),
-                                Padding(
+                Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ClipRRect(
                     borderRadius: // لجعل الحواف مستديرة
@@ -67,22 +72,32 @@ class Hotel_details extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            )),
+        Padding(
+          padding: const EdgeInsets.only(top: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+          
+              Text(
+                "Stars $stars",
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.location_pin, color: Colors.orange),
+                  Text("$locationHote")
+                ],
+              ),
+            ],
           ),
-
-
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("$hotel    $stars",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900),),
-                Text("$price")
-              ],
-            ),
-          )
-        ],
-      ),
+        ),
+        const Padding(
+          padding: EdgeInsets.only(top: 20),
+          child: Text("44fg56"),
+        )
+      ]),
     );
   }
 }
