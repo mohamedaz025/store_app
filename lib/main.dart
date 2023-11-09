@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:store_app/firebase_options.dart';
 import 'package:store_app/pages/home.dart';
 import 'package:store_app/pages/login.dart';
-import 'package:store_app/pages/test.dart';
 import 'package:store_app/provirder/card.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,7 +52,7 @@ class MyApp extends StatelessWidget {
                 return showSnackBar(context, "Something went wrong");
               }
               if (snapshot.hasData) {
-                return Home();
+                return HomeHotel();
               } else {
                 return Login();
               }
