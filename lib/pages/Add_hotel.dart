@@ -80,6 +80,8 @@ class AddHotel extends StatelessWidget {
                           hintText: "Enter Your stars :",
                           suffixIcon: Icon(Icons.star))),
                   const SizedBox(height: 20),
+                  
+
                   ElevatedButton(
                     onPressed: () {
                       if (namehotel.text == "" || link_img_1.text =="" || link_img_2.text =="" ) {
@@ -88,6 +90,7 @@ class AddHotel extends StatelessWidget {
                             "https://firebasestorage.googleapis.com/v0/b/belquis-app.appspot.com/o/Error.jpg?alt=media&token=7dac7ee3-426a-469b-8e08-7c0775eeaa59";
                         link_img_2.text =
                             "https://firebasestorage.googleapis.com/v0/b/belquis-app.appspot.com/o/Error.jpg?alt=media&token=7dac7ee3-426a-469b-8e08-7c0775eeaa59";
+                            
                         addUser();
                         namehotel.clear();
                         link_img_1.clear();

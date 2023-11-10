@@ -28,8 +28,6 @@ class _HomeHotelState extends State<HomeHotel> {
   String hotel_price = "\$200";
   String? support;
 
-
-
   //  لتشغيل الفونكشون تلقائي
   @override
   void initState() {
@@ -37,8 +35,6 @@ class _HomeHotelState extends State<HomeHotel> {
     super.initState();
     getdata();
   }
-
-
   // فونكشون استلام البينات من الفير استور تحتاج استدعاء
   void getdata() async {
     // تخذين الفير استور داخل متغير
@@ -48,9 +44,6 @@ class _HomeHotelState extends State<HomeHotel> {
       print(hotelee.data());
     }
   }
-
-
-
 
   List<HohelData> hoteldetels = [];
 
@@ -140,7 +133,7 @@ class _HomeHotelState extends State<HomeHotel> {
         ),
       ),
       appBar: AppBar(title: const Text("Home hotel")),
-     
+
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -166,12 +159,18 @@ class _HomeHotelState extends State<HomeHotel> {
                   final link_img_2 = hotel.get('link_img_2');
                   final locationHotel = hotel.get('locationHotel');
                   final stars = hotel.get('stars');
+                  final Datein1 = hotel.get('Datein1');
+                  final Dateout1 = hotel.get('Datein1');
+                  final price1 = hotel.get('price1');
 
                   final hotelwidgete = HohelData(
                       link_img1: link_img_1,
                       link_img_2: link_img_2,
                       locationHotel: locationHotel,
                       stars: stars,
+                      Datein1: Datein1,
+                      Dateout1: Dateout1,
+                      price1:price1,
                       hotelname: hotelnames);
 
                   // اضافو لاعناصر داخل الليست
@@ -186,7 +185,6 @@ class _HomeHotelState extends State<HomeHotel> {
                   ),
                 );
               }),
-         
         ],
       ),
     );
@@ -201,6 +199,9 @@ class HohelData extends StatelessWidget {
     this.stars,
     this.link_img_2,
     this.locationHotel,
+    this.Datein1,
+    this.Dateout1,
+    this.price1
   });
 
   final String? hotelname;
@@ -208,6 +209,10 @@ class HohelData extends StatelessWidget {
   final String? link_img_2;
   final String? locationHotel;
   final String? stars;
+  final String? Datein1 ;
+  final String? Dateout1;
+  final String? price1;
+
 
   @override
   Widget build(BuildContext context) {
@@ -226,6 +231,9 @@ class HohelData extends StatelessWidget {
                           link_img1: link_img1.toString(),
                           link_img_2: link_img_2.toString(),
                           stars: stars.toString(),
+                          Datein1:Datein1.toString(),
+                          Dateout1:Dateout1.toString(),
+                          price1: price1.toString(),
                           locationHote: locationHotel.toString())));
 
               print("$locationHotel");
@@ -274,7 +282,7 @@ class HohelData extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.location_pin,
                         color: Colors.orange,
                       ),
@@ -296,14 +304,20 @@ class HohelData extends StatelessWidget {
                                         locationHote:
                                             locationHotel.toString())));
                           },
-                          icon: Icon(Icons.edit)),
+                          icon: const Icon(Icons.edit)),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.price_change_outlined),
+                        color: Colors.yellow,
+                      ),
                       IconButton(
                           onPressed: () {
-                             CollectionReference deletehotel =  FirebaseFirestore.instance.collection('hotel');
+                            CollectionReference deletehotel =
+                                FirebaseFirestore.instance.collection('hotel');
                             deletehotel.doc(hotelname).delete();
                             print(hotelname);
                           },
-                          icon: Icon(Icons.delete))
+                          icon: const Icon(Icons.delete))
                     ],
                   ),
                 ],

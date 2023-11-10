@@ -24,21 +24,9 @@ class Editdetails extends StatefulWidget {
 }
 
 class _EditdetailsState extends State<Editdetails> {
-  CollectionReference hotel = FirebaseFirestore.instance.collection('hotel');
 
-  Future<void> editUser() {
-    return hotel
-        .doc(widget.hotelname)
-        .set({
-          'namehotel': namehotelcontroler.text,
-          'link_img_1': link_img_1controler.text,
-          'link_img_2': link_img_2controler.text,
-          'locationHotel': locationHotelcontroler.text,
-          'stars': starscontroler.text,
-        })
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
-  }
+
+
 
   @override
   void initState() {
@@ -48,12 +36,13 @@ class _EditdetailsState extends State<Editdetails> {
   }
 
   showtext() {
-    namehotelcontroler.text = widget.hotelname;
     link_img_1controler.text = widget.link_img1;
     link_img_2controler.text = widget.link_img_2;
+    locationHotelcontroler.text = widget.locationHote;
+    starscontroler.text = widget.stars;
   }
 
-  final namehotelcontroler = TextEditingController();
+
 
   final link_img_1controler = TextEditingController();
 
@@ -71,25 +60,18 @@ class _EditdetailsState extends State<Editdetails> {
       ),
       body: SingleChildScrollView(
         child: Column(children: [
-           Padding(
-             padding: const EdgeInsets.only(top: 15),
-             child: Text(
-                    "hotel name : ${widget.hotelname}",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                  ),
-           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20,right:20,left: 20 ),
+            padding: const EdgeInsets.only(top: 15),
+            child: Text(
+              "hotel name : ${widget.hotelname}",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
             child: Column(
               children: [
-               
-                TextField(
-                    controller: namehotelcontroler,
-                    keyboardType: TextInputType.text,
-                    obscureText: false,
-                    decoration: decorationtextfiled.copyWith(
-                        hintText: "Enter Your namehotel : ${widget.hotelname}",
-                        suffixIcon: const Icon(Icons.hotel))),
+                
                 const SizedBox(height: 20),
                 TextField(
                     controller: link_img_1controler,
@@ -128,7 +110,15 @@ class _EditdetailsState extends State<Editdetails> {
           ),
           ElevatedButton(
             onPressed: () {
-              editUser();
+              CollectionReference edithotel =
+                  FirebaseFirestore.instance.collection('hotel');
+              edithotel.doc(widget.hotelname).update({
+                "stars": starscontroler.text,
+                "link_img_1": link_img_1controler.text,
+                "link_img_2": link_img_2controler.text,
+                "locationHotel": locationHotelcontroler.text,
+              });
+              // editUser();
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.orange),
