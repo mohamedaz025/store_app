@@ -82,8 +82,8 @@ class AddHotel extends StatelessWidget {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      if (namehotel.text == "") {
-                        namehotel.text = "20";
+                      if (namehotel.text == "" || link_img_1.text =="" || link_img_2.text =="" ) {
+                        namehotel.text = "?????????..";
                         link_img_1.text =
                             "https://firebasestorage.googleapis.com/v0/b/belquis-app.appspot.com/o/Error.jpg?alt=media&token=7dac7ee3-426a-469b-8e08-7c0775eeaa59";
                         link_img_2.text =

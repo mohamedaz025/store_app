@@ -27,32 +27,17 @@ class _HomeHotelState extends State<HomeHotel> {
   late User signedinuser;
   String hotel_price = "\$200";
   String? support;
+
+
+
   //  لتشغيل الفونكشون تلقائي
-  // تخذين بينات بربع ادخال داخل متغير
-  final sendController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getuser();
     getdata();
   }
 
-  void getuser() {
-    try {
-      // لفحص اذا كان هنا مستخدم سجل الدخو وتخذينه في متغير اسمه يوزر
-      final user = _auth.currentUser;
-      // شرط اذا كان اليوزر غير فارغ اجعل قيمته تساوي متغير
-      if (user != null) {
-        signedinuser = user;
-        // اطبع الميل فقط من النتغير المساوي لكل بينات اليوزر
-        print(signedinuser.email);
-      }
-      // اذا لم يساوي المتغير يوزر الميل وكان فارغ يطبع الخطاء
-    } catch (e) {
-      print(e);
-    }
-  }
 
   // فونكشون استلام البينات من الفير استور تحتاج استدعاء
   void getdata() async {
@@ -64,28 +49,8 @@ class _HomeHotelState extends State<HomeHotel> {
     }
   }
 
-  // // فونكشون استلام البينات من الفير استور لا تحتاج الي استدعاء
-  // void getdatastreams() async {
-  //   // عمل لوب وتخذين جدول معين داخل متغير
-  //   await for (var hoteles in _firestore.collection('hotel').snapshots()) {
-  //     // تخذين المتغير السابق في متغير جديد وطباعة كل سطر علي حدي
-  //     for (var hotelee in hoteles.docs) {
-  //       print(hotelee.data());
-  //     }
-  //   }
-  // }
 
-//  فونكشون لعمل اضافه داخل الفير استور
-  addfirestore() {
-    // جعل قيمة المتغير الخاص بمربع الادخال تساوي المتغير الذي سيضاف قي الفير استور
-    support = sendController.text;
-    _firestore.collection('support').add({
-      // القيمة المخذنه عبارة عن ماب كي له قيمه والقيم متغيره
-      'hotel1_price': hotel_price,
-      'support': support,
-      'useradd': signedinuser.email
-    });
-  }
+
 
   List<HohelData> hoteldetels = [];
 
@@ -160,7 +125,7 @@ class _HomeHotelState extends State<HomeHotel> {
                         context,
                         MaterialPageRoute(
                             // اسم الصفحه المراد الوصل اليها
-                            builder: (context) =>  AddHotel()),
+                            builder: (context) => AddHotel()),
                       );
                     }),
               ],
@@ -175,16 +140,7 @@ class _HomeHotelState extends State<HomeHotel> {
         ),
       ),
       appBar: AppBar(title: const Text("Home hotel")),
-      floatingActionButton: //  لعمل زر عائم
-          FloatingActionButton(
-        onPressed: () {
-          addfirestore();
-          // لعل تفريغ لخقل الادخال
-          sendController.clear();
-        },
-        child: const Icon(Icons.home), // لاضافة ايكونة داخل الزر
-        backgroundColor: Colors.purple[400], // لتعير لون الزر
-      ),
+     
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -212,9 +168,8 @@ class _HomeHotelState extends State<HomeHotel> {
                   final stars = hotel.get('stars');
 
                   final hotelwidgete = HohelData(
-
                       link_img1: link_img_1,
-                      link_img_2: link_img_2  ,
+                      link_img_2: link_img_2,
                       locationHotel: locationHotel,
                       stars: stars,
                       hotelname: hotelnames);
@@ -231,15 +186,7 @@ class _HomeHotelState extends State<HomeHotel> {
                   ),
                 );
               }),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: TextField(
-              controller: sendController,
-              keyboardType: TextInputType.text,
-              obscureText: false,
-              decoration: const InputDecoration(hintText: "send"),
-            ),
-          ),
+         
         ],
       ),
     );
@@ -252,7 +199,6 @@ class HohelData extends StatelessWidget {
     this.hotelname,
     this.link_img1,
     this.stars,
-
     this.link_img_2,
     this.locationHotel,
   });
@@ -262,7 +208,6 @@ class HohelData extends StatelessWidget {
   final String? link_img_2;
   final String? locationHotel;
   final String? stars;
-
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +224,6 @@ class HohelData extends StatelessWidget {
                       builder: (context) => Hotel_details(
                           hotelname: hotelname.toString(),
                           link_img1: link_img1.toString(),
-
                           link_img_2: link_img_2.toString(),
                           stars: stars.toString(),
                           locationHote: locationHotel.toString())));
@@ -339,22 +283,27 @@ class HohelData extends StatelessWidget {
                         style:
                             const TextStyle(fontSize: 15, color: Colors.white),
                       ),
-
-
-                      IconButton(onPressed: (){
-
-
- Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Editdetails(
-                          hotelname: hotelname.toString(),
-                          link_img1: link_img1.toString(),
-                          link_img_2: link_img_2.toString(),
-                          stars: stars.toString(),
-                          locationHote: locationHotel.toString())));
-
-                      }, icon: Icon(Icons.edit))
+                      IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Editdetails(
+                                        hotelname: hotelname.toString(),
+                                        link_img1: link_img1.toString(),
+                                        link_img_2: link_img_2.toString(),
+                                        stars: stars.toString(),
+                                        locationHote:
+                                            locationHotel.toString())));
+                          },
+                          icon: Icon(Icons.edit)),
+                      IconButton(
+                          onPressed: () {
+                             CollectionReference deletehotel =  FirebaseFirestore.instance.collection('hotel');
+                            deletehotel.doc(hotelname).delete();
+                            print(hotelname);
+                          },
+                          icon: Icon(Icons.delete))
                     ],
                   ),
                 ],
