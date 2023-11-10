@@ -110,7 +110,7 @@ class AddHotel extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8))),
                     ),
                     child: const Text(
-                      "click here",
+                      "Add hotel",
                       style: TextStyle(fontSize: 19),
                     ),
                   ),

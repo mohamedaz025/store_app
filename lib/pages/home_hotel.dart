@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:store_app/hotel_details.dart';
 import 'package:store_app/model/item.dart';
 import 'package:store_app/pages/Add_hotel.dart';
+import 'package:store_app/pages/Edit_hotel.dart';
 import 'package:store_app/pages/Profile%20_page.dart';
 import 'package:store_app/pages/checkout.dart';
 import 'package:store_app/pages/details_screen.dart';
@@ -338,6 +339,22 @@ class HohelData extends StatelessWidget {
                         style:
                             const TextStyle(fontSize: 15, color: Colors.white),
                       ),
+
+
+                      IconButton(onPressed: (){
+
+
+ Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Editdetails(
+                          hotelname: hotelname.toString(),
+                          link_img1: link_img1.toString(),
+                          link_img_2: link_img_2.toString(),
+                          stars: stars.toString(),
+                          locationHote: locationHotel.toString())));
+
+                      }, icon: Icon(Icons.edit))
                     ],
                   ),
                 ],
