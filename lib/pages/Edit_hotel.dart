@@ -119,6 +119,7 @@ class _EditdetailsState extends State<Editdetails> {
                 "locationHotel": locationHotelcontroler.text,
               });
               // editUser();
+              Navigator.pop(context);
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.orange),
