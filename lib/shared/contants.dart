@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const decorationtextfiled = InputDecoration(
+  
   hintText: "Enter Your email :",
   // To delete borders
   enabledBorder: OutlineInputBorder(

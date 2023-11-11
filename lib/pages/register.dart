@@ -184,7 +184,8 @@ class _RegisterState extends State<Register> {
                               // تغير شكل ايكونة الباسورد علي حسب متغير
                               icon: isvisable
                                   ? Icon(Icons.visibility)
-                                  : Icon(Icons.visibility_off)))),
+                                  : Icon(Icons.visibility_off))
+                                  )),
                   const SizedBox(height: 20),
                   Row(
                     children: [

@@ -5,27 +5,32 @@ import 'package:store_app/shared/contants.dart';
 class AddHotel extends StatelessWidget {
   AddHotel({super.key});
 
-  CollectionReference hotel = FirebaseFirestore.instance.collection('hotel');
+  final namehotel = TextEditingController();
+  final linkImg1 = TextEditingController();
+  final linkImg2 = TextEditingController();
+  final locationHotel = TextEditingController();
+  final stars = TextEditingController();
+  final datein1 = "20";
+  final dateout1 = "20";
+  final price1 = "20";
 
+  CollectionReference hotel = FirebaseFirestore.instance.collection('hotel');
   Future<void> addUser() {
     return hotel
         .doc(namehotel.text)
         .set({
           'namehotel': namehotel.text,
-          'link_img_1': link_img_1.text,
-          'link_img_2': link_img_2.text,
+          'link_img_1': linkImg1.text,
+          'link_img_2': linkImg2.text,
           'locationHotel': locationHotel.text,
           'stars': stars.text,
+          'datein1': datein1,
+          'dateout1': dateout1,
+          'price1': price1,
         })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
-
-  final namehotel = TextEditingController();
-  final link_img_1 = TextEditingController();
-  final link_img_2 = TextEditingController();
-  final locationHotel = TextEditingController();
-  final stars = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +54,7 @@ class AddHotel extends StatelessWidget {
                           suffixIcon: Icon(Icons.hotel))),
                   const SizedBox(height: 20),
                   TextField(
-                      controller: link_img_1,
+                      controller: linkImg1,
                       keyboardType: TextInputType.text,
                       obscureText: false,
                       decoration: decorationtextfiled.copyWith(
@@ -57,7 +62,7 @@ class AddHotel extends StatelessWidget {
                           suffixIcon: Icon(Icons.image))),
                   const SizedBox(height: 20),
                   TextField(
-                      controller: link_img_2,
+                      controller: linkImg2,
                       keyboardType: TextInputType.text,
                       obscureText: false,
                       decoration: decorationtextfiled.copyWith(
@@ -80,28 +85,28 @@ class AddHotel extends StatelessWidget {
                           hintText: "Enter Your stars :",
                           suffixIcon: Icon(Icons.star))),
                   const SizedBox(height: 20),
-                  
-
                   ElevatedButton(
                     onPressed: () {
-                      if (namehotel.text == "" || link_img_1.text =="" || link_img_2.text =="" ) {
+                      if (namehotel.text == "" ||
+                          linkImg1.text == "" ||
+                          linkImg2.text == "") {
                         namehotel.text = "?????????..";
-                        link_img_1.text =
+                        linkImg1.text =
                             "https://firebasestorage.googleapis.com/v0/b/belquis-app.appspot.com/o/Error.jpg?alt=media&token=7dac7ee3-426a-469b-8e08-7c0775eeaa59";
-                        link_img_2.text =
+                        linkImg2.text =
                             "https://firebasestorage.googleapis.com/v0/b/belquis-app.appspot.com/o/Error.jpg?alt=media&token=7dac7ee3-426a-469b-8e08-7c0775eeaa59";
-                            
+
                         addUser();
                         namehotel.clear();
-                        link_img_1.clear();
-                        link_img_2.clear();
+                        linkImg1.clear();
+                        linkImg2.clear();
                         locationHotel.clear();
                         stars.clear();
                       } else {
                         addUser();
                         namehotel.clear();
-                        link_img_1.clear();
-                        link_img_2.clear();
+                        linkImg1.clear();
+                        linkImg2.clear();
                         locationHotel.clear();
                         stars.clear();
                       }
@@ -127,11 +132,3 @@ class AddHotel extends StatelessWidget {
   }
 }
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
