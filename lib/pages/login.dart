@@ -1,15 +1,13 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable
+
+// ignore_for_file: unused_local_variable, use_build_context_synchronously
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/pages/ForgetPassword.dart';
 import 'package:store_app/pages/register.dart';
-import 'package:store_app/provirder/google_Login.dart';
 import 'package:store_app/shared/SnackBar.dart';
 import 'package:store_app/shared/colors.dart';
 import 'package:store_app/shared/contants.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -43,9 +41,28 @@ class _LoginState extends State<Login> {
     }
   }
 
+  loginguest() async {
+    setState(() {
+      isLoding = true;
+    });
+
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: "guest@belquis.com",
+        password: "12345678",
+      );
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, "Error :  ${e.code}");
+
+      setState(() {
+        isLoding = false;
+      });
+    }
+  }
+
   @override
   void dispose() {
-    // TODO: implement dispose
+
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -53,10 +70,10 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
         appBar: AppBar(
           backgroundColor: appbarGreen,
+          // ignore: prefer_const_constructors
           title: Text("Log in"),
         ),
         body: Center(
@@ -73,7 +90,7 @@ class _LoginState extends State<Login> {
                       obscureText: false,
                       decoration: decorationtextfiled.copyWith(
                           hintText: "Enter Your email :",
-                          suffixIcon: Icon(Icons.email))),
+                          suffixIcon: const Icon(Icons.email))),
                   const SizedBox(height: 20),
                   TextField(
                       controller: passwordController,
@@ -90,8 +107,8 @@ class _LoginState extends State<Login> {
                               },
                               // تغير شكل ايكونة الباسورد علي حسب متغير
                               icon: isvisable
-                                  ? Icon(Icons.visibility)
-                                  : Icon(Icons.visibility_off)))),
+                                  ? const Icon(Icons.visibility)
+                                  : const Icon(Icons.visibility_off)))),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () async {
@@ -106,10 +123,10 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.circular(8))),
                     ),
                     child: isLoding
-                        ? CircularProgressIndicator(
-                            color: const Color.fromARGB(255, 243, 13, 13),
+                        ? const CircularProgressIndicator(
+                            color: Color.fromARGB(255, 243, 13, 13),
                           )
-                        : Text(
+                        : const Text(
                             "Log in",
                             style: TextStyle(fontSize: 19),
                           ),
@@ -120,10 +137,10 @@ class _LoginState extends State<Login> {
                           context,
                           MaterialPageRoute(
                               // اسم الصفحه المراد الوصل اليها
-                              builder: (context) => Forgetpassword()),
+                              builder: (context) => const Forgetpassword()),
                         );
                       },
-                      child: Text("Forget Password",
+                      child: const Text("Forget Password",
                           style: TextStyle(
                               fontSize: 19,
                               decoration: TextDecoration.underline))),
@@ -138,10 +155,10 @@ class _LoginState extends State<Login> {
                             context,
                             MaterialPageRoute(
                                 // اسم الصفحه المراد الوصل اليها
-                                builder: (context) => Register()),
+                                builder: (context) => const Register()),
                           );
                         },
-                        child: Text(
+                        child: const Text(
                           "Register",
                           style: TextStyle(
                               fontSize: 19,
@@ -150,49 +167,14 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 17,
-                  ),
-                  SizedBox(
-                    width: 299,
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Divider(
-                          thickness: 0.6,
-                          color: Colors.purple[900],
-                        )),
-                        Text(
-                          "OR",
-                          style: TextStyle(
-                            color: Colors.purple[900],
-                          ),
-                        ),
-                        Expanded(
-                            child: Divider(
-                          thickness: 0.6,
-                          color: Colors.purple[900],
-                        )),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 20),
-                    child: GestureDetector(
-                      onTap: () {
-                        // googlelogInProvider.googlelogin();
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(13),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.purple, width: 2)),
-                        child: SvgPicture.asset(
-                          "assets/icons/google.svg",
-                          // color: Colors.purple[400],
-                          height: 28,
-                        ),
-                      ),
+                  TextButton(
+                    onPressed: () {
+                      loginguest();
+                    },
+                    child: const Text(
+                      "Log in guest",
+                      style: TextStyle(
+                          fontSize: 19, decoration: TextDecoration.underline),
                     ),
                   ),
                 ],

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +125,7 @@ class _GetdataFromfierstorState extends State<GetdataFromfierstor> {
                       onPressed: () {
                         mydilog(data, 'age');
                       },
-                      icon: Icon(Icons.edit))
+                      icon: const Icon(Icons.edit))
                 ],
               ),
               const SizedBox(height: 15),

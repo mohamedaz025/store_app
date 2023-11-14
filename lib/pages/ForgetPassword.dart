@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:store_app/pages/login.dart';
@@ -35,7 +37,6 @@ class _ForgetpasswordState extends State<Forgetpassword> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     emailController.dispose();
     super.dispose();
   }

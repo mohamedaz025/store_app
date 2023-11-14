@@ -1,6 +1,7 @@
-// ignore_for_file: must_be_immutable, camel_case_types, prefer_const_constructors
+// ignore_for_file: must_be_immutable, camel_case_types, prefer_const_constructors, unused_local_variable, avoid_print
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:store_app/pages/Book_now.dart';
 import 'package:store_app/pages/edit_price.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -30,7 +31,6 @@ class _HoteldetailsState extends State<Hoteldetails> {
   void getprice() async {
     final prices = await _firestore.collection(widget.hotelname).get();
     for (var price in prices.docs) {
-      print(price.data());
     }
   }
 
@@ -112,10 +112,9 @@ class _HoteldetailsState extends State<Hoteldetails> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(width: 13),
-              Container(
-                  child: Text(widget.hotelname,
-                      style: TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w900))),
+              Text(widget.hotelname,
+                  style: TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w900)),
             ],
           ),
           const SizedBox(
@@ -164,7 +163,7 @@ class _HoteldetailsState extends State<Hoteldetails> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "In:${datein}",
+                                      "In:$datein",
                                       style: const TextStyle(
                                           fontSize: 17,
                                           fontWeight: FontWeight.w900),
@@ -263,22 +262,36 @@ class _HoteldetailsState extends State<Hoteldetails> {
                                     Column(
                                       children: [
                                         IconButton(
-                                            onPressed: () async{
-                                               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Editprice(
-                          //
-                          hotelname: widget.hotelname.toString(),
-                          datein:datein.toString(),
-                          dateout:dateout.toString(),
-                          pricesingle:pricesingle.toString(),
-                          pricedouble:pricedouble.toString(),
-                          pricetriple:pricetriple.toString(),
-                          pricechild1:pricechild1.toString(),
-                          pricechild2:pricechild2.toString(),
-
-                          )));
+                                            onPressed: () async {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Editprice(
+                                                            //
+                                                            hotelname: widget
+                                                                .hotelname
+                                                                .toString(),
+                                                            datein: datein
+                                                                .toString(),
+                                                            dateout: dateout
+                                                                .toString(),
+                                                            pricesingle:
+                                                                pricesingle
+                                                                    .toString(),
+                                                            pricedouble:
+                                                                pricedouble
+                                                                    .toString(),
+                                                            pricetriple:
+                                                                pricetriple
+                                                                    .toString(),
+                                                            pricechild1:
+                                                                pricechild1
+                                                                    .toString(),
+                                                            pricechild2:
+                                                                pricechild2
+                                                                    .toString(),
+                                                          )));
                                             },
                                             icon: Icon(Icons.edit)),
                                         IconButton(
@@ -302,7 +315,17 @@ class _HoteldetailsState extends State<Hoteldetails> {
                                       width: 70,
                                       height: 70,
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.push(context,MaterialPageRoute(builder: (context) =>Booknow(
+                                       hotelname: widget.hotelname.toString(),
+                                       datein:datein.toString(),
+                                       dateout:dateout.toString(),
+                                       pricesingle: pricesingle.toString(),
+                                       pricedouble: pricedouble.toString(),
+                                       pricetriple: pricetriple.toString(),
+                                       pricechild1: pricechild1.toString(),
+                                       pricechild2: pricechild2.toString(),)));
+                                        },
                                         style: ButtonStyle(
                                           backgroundColor:
                                               MaterialStateProperty.all(

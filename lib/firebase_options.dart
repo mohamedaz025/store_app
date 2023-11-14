@@ -44,41 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAQAEwHbquwYMZGnWzP13C2FVFZszwqsRI',
-    appId: '1:11015802386:web:06c22e7767d127ff0bd2cb',
-    messagingSenderId: '11015802386',
-    projectId: 'belquis-app',
-    authDomain: 'belquis-app.firebaseapp.com',
-    storageBucket: 'belquis-app.appspot.com',
+    apiKey: 'AIzaSyCe2gIyVd4chDpYAiTHpG3dWtcmYyj486Y',
+    appId: '1:82499568867:web:f418dff8b083531b8e71d6',
+    messagingSenderId: '82499568867',
+    projectId: 'belquistours-893d9',
+    authDomain: 'belquistours-893d9.firebaseapp.com',
+    storageBucket: 'belquistours-893d9.appspot.com',
+    measurementId: 'G-LN36VQ8JLW',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCk6DAUeDzFMnPcjtJlt-EF1A4NDbkmhfk',
-    appId: '1:11015802386:android:e17bd3bf4cf6ff560bd2cb',
-    messagingSenderId: '11015802386',
-    projectId: 'belquis-app',
-    storageBucket: 'belquis-app.appspot.com',
+    apiKey: 'AIzaSyCrDBo5DexadBcfxjIRCK8xbE0JDBtwKNE',
+    appId: '1:82499568867:android:af744b4cc75f75f68e71d6',
+    messagingSenderId: '82499568867',
+    projectId: 'belquistours-893d9',
+    storageBucket: 'belquistours-893d9.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDfIteGOyMWtcRpQGu2gh6_d6Sk8eD2SOE',
-    appId: '1:11015802386:ios:94a93ca04e1716b10bd2cb',
-    messagingSenderId: '11015802386',
-    projectId: 'belquis-app',
-    storageBucket: 'belquis-app.appspot.com',
-    androidClientId: '11015802386-vripe36prctpi0ktrmq558sieh5m2u8l.apps.googleusercontent.com',
-    iosClientId: '11015802386-02s0tn9cn7gll74acua2g64u1k8mccdd.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA2-CFZ2glpsgRBIF1Tho7b9RO7pkL1rOw',
+    appId: '1:82499568867:ios:8c806dc7862f07e78e71d6',
+    messagingSenderId: '82499568867',
+    projectId: 'belquistours-893d9',
+    storageBucket: 'belquistours-893d9.appspot.com',
     iosBundleId: 'com.example.storeApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDfIteGOyMWtcRpQGu2gh6_d6Sk8eD2SOE',
-    appId: '1:11015802386:ios:235c47ca1834f4e40bd2cb',
-    messagingSenderId: '11015802386',
-    projectId: 'belquis-app',
-    storageBucket: 'belquis-app.appspot.com',
-    androidClientId: '11015802386-vripe36prctpi0ktrmq558sieh5m2u8l.apps.googleusercontent.com',
-    iosClientId: '11015802386-bee42cm8hgtq8nskjsh1ddo4ul1svb5j.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA2-CFZ2glpsgRBIF1Tho7b9RO7pkL1rOw',
+    appId: '1:82499568867:ios:c2b69cee654b582f8e71d6',
+    messagingSenderId: '82499568867',
+    projectId: 'belquistours-893d9',
+    storageBucket: 'belquistours-893d9.appspot.com',
     iosBundleId: 'com.example.storeApp.RunnerTests',
   );
 }

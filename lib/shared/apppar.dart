@@ -4,7 +4,6 @@
 
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:store_app/pages/checkout.dart';
 import 'package:store_app/provirder/card.dart';
 
 class ProductsAndPrice extends StatelessWidget {
@@ -37,14 +36,11 @@ class ProductsAndPrice extends StatelessWidget {
                         icon: Icon(
                             Icons.add_shopping_cart), // الاكشن تظهر علي اليمين
                         onPressed: () {
-                                 Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Checkout()));
+
                         }),
                   ],
                 ),
-//  لعمل ايكونه للضغط عليها
+
 
                 Padding(
                   padding: const EdgeInsets.only(

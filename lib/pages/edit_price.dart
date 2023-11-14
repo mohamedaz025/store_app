@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -30,7 +32,7 @@ class _EditpriceState extends State<Editprice> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     showtext();
   }
@@ -63,13 +65,13 @@ class _EditpriceState extends State<Editprice> {
               children: [
                 Text(
                   widget.hotelname,
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900),
+                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900),
                 ),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 160,
                       child: TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -95,7 +97,7 @@ class _EditpriceState extends State<Editprice> {
                                   icon: const Icon(Icons.date_range,
                                       color: Colors.blue)))),
                     ),
-                    Container(
+                    SizedBox(
                       width: 160,
                       child: TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,

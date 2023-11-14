@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, sort_child_properties_last, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -61,7 +61,6 @@ class _RegisterState extends State<Register> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     usernameController.dispose();
     ageController.dispose();
     emailController.dispose();
@@ -202,85 +201,15 @@ class _RegisterState extends State<Register> {
                       SizedBox(
                         width: 11,
                       ),
-                      Text("At least 8 characters")
+                      Text("At least 8 characters Password")
                     ],
                   ),
                   SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Container(
-                        child: Icon(Icons.check, color: Colors.white, size: 15),
-                        decoration: BoxDecoration(
-                            color: ispasswordHas1number
-                                ? Colors.green
-                                : Colors.white,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color:
-                                    const Color.fromARGB(255, 189, 189, 189))),
-                      ),
-                      SizedBox(
-                        width: 11,
-                      ),
-                      Text("At least 1 number")
-                    ],
-                  ),
-                  SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Container(
-                        child: Icon(Icons.check, color: Colors.white, size: 15),
-                        decoration: BoxDecoration(
-                            color: hasUppercase ? Colors.green : Colors.white,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color:
-                                    const Color.fromARGB(255, 189, 189, 189))),
-                      ),
-                      SizedBox(
-                        width: 11,
-                      ),
-                      Text("Has Uppercase")
-                    ],
-                  ),
-                  SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Container(
-                        child: Icon(Icons.check, color: Colors.white, size: 15),
-                        decoration: BoxDecoration(
-                            color: hasLowercase ? Colors.green : Colors.white,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color:
-                                    const Color.fromARGB(255, 189, 189, 189))),
-                      ),
-                      SizedBox(
-                        width: 11,
-                      ),
-                      Text("Has Lowercase")
-                    ],
-                  ),
-                  SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Container(
-                        child: Icon(Icons.check, color: Colors.white, size: 15),
-                        decoration: BoxDecoration(
-                            color: hasSpecialCharacters
-                                ? Colors.green
-                                : Colors.white,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color:
-                                    const Color.fromARGB(255, 189, 189, 189))),
-                      ),
-                      SizedBox(
-                        width: 11,
-                      ),
-                      Text("Has Special Characters")
-                    ],
-                  ),
+
+
+
+
+
                   SizedBox(height: 12),
                   ElevatedButton(
                     onPressed: () async {

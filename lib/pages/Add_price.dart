@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, must_be_immutable, file_names, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _AddpriceState extends State<Addprice> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 160,
                       child: TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -64,7 +64,7 @@ class _AddpriceState extends State<Addprice> {
                                   icon: Icon(Icons.date_range,
                                       color: Colors.blue)))),
                     ),
-                    Container(
+                    SizedBox(
                       width: 160,
                       child: TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
