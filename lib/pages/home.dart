@@ -98,6 +98,7 @@ class Home extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20)),
                           ),
                           SizedBox(width: 10),
+                          //
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
